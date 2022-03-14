@@ -1,13 +1,10 @@
-import React from 'react';
-import { Button, Text, View } from 'react-native';
-import Login from '../app/src/Login/Login.js';
+import * as React from 'react';
+import Login from "./src/Login/Login"
 
-const App = () => {
+function App(){
   return (
-    <View style={{ flex: 1, justifyContent: "center", alignItems: "center",backgroundColor: "#40E0D0" }}>
-      <Login/>
-    </View>
+   <Login />
   );
-}
+};
 
 export default App;
