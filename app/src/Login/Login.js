@@ -1,3 +1,4 @@
+import { NavigationContainer } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
   Text,
@@ -10,18 +11,19 @@ import {
   StyleSheet
 } from "react-native";
 import Logo from "../../assets/logoListei.png";
+import { useNavigation } from '@react-navigation/native'
 
 
 function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
+  const navigation = useNavigation();
+
   const entrar = () => {
-    console.log(email)
-    console.log(senha)
   
-    if (email === "") {
-      alert("Login efetuado com sucesso")
+    if (email === "gabriela.muniz" && senha === "123456789") {
+      navigation.navigate('Cadastro')
     } else {
       alert("Usuário e senha incorreto!")
     }
@@ -56,7 +58,7 @@ function Login() {
             type="email"
             placeholder="Email"
             value={email}
-            onChange={e=> setEmail(e.target.value)}
+            onChangeText={setEmail}
           />
           <TextInput
             style={{
@@ -69,7 +71,7 @@ function Login() {
             type="password"
             placeholder="senha"
             value={senha}
-            onChange={e=> setSenha(e.target.value)}
+            onChangeText={setSenha}
           />
           <View
             style={{
