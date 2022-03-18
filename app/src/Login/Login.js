@@ -8,11 +8,10 @@ import {
   Image,
   KeyboardAvoidingView,
   Platform,
-  StyleSheet
+  StyleSheet,
 } from "react-native";
 import Logo from "../../assets/logoListei.png";
-import { useNavigation } from '@react-navigation/native'
-
+import { useNavigation } from "@react-navigation/native";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -21,28 +20,30 @@ function Login() {
   const navigation = useNavigation();
 
   const entrar = () => {
-  
     if (email === "gabriela.muniz" && senha === "123456789") {
-      navigation.navigate('Cadastro')
+      navigation.navigate("Cadastro");
     } else {
-      alert("Usuário e senha incorreto!")
+      alert("Usuário e senha incorreto!");
     }
-  }
+  };
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
     >
-      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "white",
+        }}
+      >
         <View
           style={{
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
-            backgroundColor: "white",
-            borderRadius: 20,
-            height: 200,
-            margin: 150,
           }}
         >
           <Image source={Logo} style={estilo.logo} />
@@ -78,7 +79,14 @@ function Login() {
               marginTop: 20,
             }}
           >
-            <Button title="Login" color="#4682B4" onPress={entrar} />
+            <Button title="Login" color="#4682B4" />
+            <View
+              style={{
+                marginTop: 20,
+              }}
+            >
+              <Button title="Cadastre-se" color="#4682B4" onPress={entrar} />
+            </View>
           </View>
         </View>
       </View>
@@ -90,7 +98,7 @@ const estilo = StyleSheet.create({
   logo: {
     width: 200,
     height: 200,
-  }
-})
+  },
+});
 
 export default Login;
