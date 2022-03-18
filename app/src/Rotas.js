@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import Cadastro from "./Cadastro/Cadastro";
 import Login from "./Login/Login";
+import Home from "./Home/Home";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,11 +17,9 @@ function Rotas() {
           headerShown: false,
         }}
       >
-        <Stack.Screen
-          name="Login"
-          component={Login}
-        />
+        <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
+        <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,4 +1,3 @@
-import { NavigationContainer } from "@react-navigation/native";
 import React, { useState } from "react";
 import {
   Text,
@@ -20,8 +19,10 @@ function Login() {
   const navigation = useNavigation();
 
   const entrar = () => {
+    console.log("To aqui")
     if (email === "gabriela.muniz" && senha === "123456789") {
-      navigation.navigate("Cadastro");
+      navigation.navigate("Home");
+      console.log("efetuado")
     } else {
       alert("Usuário e senha incorreto!");
     }
@@ -84,8 +85,13 @@ function Login() {
               style={{
                 marginTop: 20,
               }}
+              onPress={entrar}
             >
-              <Button title="Cadastre-se" color="#4682B4" onPress={entrar} />
+              <Button
+                title="Cadastre-se"
+                color="#4682B4"
+                onPress={() => navigation.navigate("Cadastro")}
+              />
             </View>
           </View>
         </View>
