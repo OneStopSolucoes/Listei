@@ -19,10 +19,8 @@ function Login() {
   const navigation = useNavigation();
 
   const entrar = () => {
-    console.log("To aqui")
     if (email === "gabriela.muniz" && senha === "123456789") {
       navigation.navigate("Home");
-      console.log("efetuado")
     } else {
       alert("Usuário e senha incorreto!");
     }
@@ -80,12 +78,11 @@ function Login() {
               marginTop: 20,
             }}
           >
-            <Button title="Login" color="#4682B4" />
+            <Button title="Login" color="#4682B4" onPress={entrar} />
             <View
               style={{
                 marginTop: 20,
               }}
-              onPress={entrar}
             >
               <Button
                 title="Cadastre-se"

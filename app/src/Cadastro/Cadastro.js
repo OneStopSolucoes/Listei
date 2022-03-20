@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { Image, Text, View, TextInput } from "react-native";
+import { Image, Text, View, TextInput, Button } from "react-native";
 import Logo from "../../assets/logoListei.png";
+import { useNavigation } from "@react-navigation/native";
 
 function Cadastro() {
   const [nome, setNome] = useState();
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
+
+  const navigation = useNavigation();
   return (
     <View
       style={{
@@ -64,6 +67,13 @@ function Cadastro() {
           value={senha}
           onChangeText={setSenha}
         />
+        <View style={{ marginTop: 20 }}>
+          <Button
+            title="Cadastre-se"
+            color="#4682B4"
+            onPress={() => navigation.navigate("Login")}
+          />
+        </View>
       </View>
     </View>
   );
