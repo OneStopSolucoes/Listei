@@ -1,7 +1,10 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, Button } from "react-native";
+import NavBar from "../Componentes/NavBar/NavBar";
+
 
 function Home() {
+
   return (
     <View
       style={{
@@ -11,10 +14,16 @@ function Home() {
         backgroundColor: "white",
       }}
     >
-        <View>
+      <View
+        style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
         <Text>Home</Text>
-        </View>
-  
+      </View>
+      <NavBar/>
     </View>
   );
 }
