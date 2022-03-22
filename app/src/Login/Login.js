@@ -8,13 +8,16 @@ import {
   KeyboardAvoidingView,
   Platform,
   StyleSheet,
+  TouchableOpacity,
 } from "react-native";
-import Logo from "../../assets/logoListei.png";
+import Logo from "../../assets/Listei.jpeg";
 import { useNavigation } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [hide, setHide] = useState(true);
 
   const navigation = useNavigation();
 
@@ -47,32 +50,73 @@ function Login() {
         >
           <Image source={Logo} style={estilo.logo} />
           <Text>Login</Text>
-          <TextInput
+          <View
             style={{
-              height: 40,
+              flexDirection: "row",
+              width: "107%",
+              borderRadius: 5,
+              height: 50,
+              alignItems: "center",
               borderColor: "gray",
               borderWidth: 1,
-              width: 200,
-              marginTop: 20,
+              marginTop:10,
             }}
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChangeText={setEmail}
-          />
-          <TextInput
+          >
+            <TextInput
+              style={{
+                width: "80%",
+                height: 50,
+                padding: 8,
+                fontSize: 18,
+              }}
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChangeText={setEmail}
+            />
+          </View>
+
+          <View
             style={{
-              height: 40,
+              flexDirection: "row",
+              width: "90%",
+              borderRadius: 5,
+              height: 50,
+              alignItems: "center",
               borderColor: "gray",
               borderWidth: 1,
-              width: 200,
-              marginTop: 20,
+              marginTop: 10,
             }}
-            type="password"
-            placeholder="senha"
-            value={senha}
-            onChangeText={setSenha}
-          />
+          >
+            <TextInput
+              style={{
+                width: "80%",
+                height: 50,
+                padding: 8,
+                fontSize: 18,
+              }}
+              placeholder="senha"
+              value={senha}
+              onChangeText={setSenha}
+              secureTextEntry={hide}
+            />
+            <TouchableOpacity
+              onPress={() => setHide(!hide)}
+              style={{
+                width: "15%",
+                height: 50,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {hide ? (
+                <Ionicons name="eye" color="fff" size={25} />
+              ) : (
+                <Ionicons name="eye-off" color="fff" size={25} />
+              )}
+            </TouchableOpacity>
+          </View>
+
           <View
             style={{
               marginTop: 20,
@@ -99,7 +143,7 @@ function Login() {
 
 const estilo = StyleSheet.create({
   logo: {
-    width: 200,
+    width: 400,
     height: 200,
   },
 });
