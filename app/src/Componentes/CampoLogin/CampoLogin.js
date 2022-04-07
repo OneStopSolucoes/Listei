@@ -19,7 +19,10 @@ function CampoLogin() {
 
   const entrar = () => {
     if (email === "gabriela.muniz" && senha === "123456789") {
-      navigation.navigate("Home");
+      navigation.navigate("Perfil", {
+        paramKey: email
+      });
+      console.log(paramKey)
     } else {
       alert("Usuário e senha incorreto!");
     }
@@ -54,7 +57,11 @@ function CampoLogin() {
       </View>
 
       <View style={styles.buttonView}>
-        <Button title="Login" color="#4682B4" onPress={entrar} />
+        <Button title="Login" color="#4682B4" onPress={() =>
+            navigation.navigate('Home', {
+              paramKey: email,
+            })
+          } />
       </View>
       <View style={styles.buttonView}>
         <Button

@@ -1,12 +1,16 @@
-import React from 'react';
-import { View,Text } from 'react-native';
-import NavBar from '../Componentes/NavBar/NavBar';
+import { useNavigation, useRoute } from "@react-navigation/native";
 
-function Perfil(){
-    return <View>
-        <Text>Perfil</Text>
-        <NavBar/>
+import React from "react";
+import { View, Text } from "react-native";
+import NavBar from "../Componentes/NavBar/NavBar";
+
+function Perfil() {
+  return (
+    <View>
+      <Text>Perfil</Text>
+      <NavBar />
     </View>
+  );
 }
 
 export default Perfil;

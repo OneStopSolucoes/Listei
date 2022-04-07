@@ -1,3 +1,4 @@
+import { useRoute } from "@react-navigation/native";
 import React from "react";
 import { View, Text, Button } from "react-native";
 import NavBar from "../Componentes/NavBar/NavBar";
@@ -22,6 +23,7 @@ function Home() {
         }}
       >
         <Text>Home</Text>
+
       </View>
       <NavBar/>
     </View>
