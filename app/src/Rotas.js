@@ -17,6 +17,7 @@ function Rotas() {
         screenOptions={{
           headerShown: false,
         }}
+        initialRouteName="Login"
       >
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Cadastro" component={Cadastro} />

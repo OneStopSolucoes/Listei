@@ -14,15 +14,16 @@ function CampoLogin() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [hide, setHide] = useState(true);
+  let paramKey = ""
 
   const navigation = useNavigation();
 
   const entrar = () => {
-    if (email === "gabriela.muniz" && senha === "123456789") {
-      navigation.navigate("Perfil", {
-        paramKey: email
+    if (email === "Li" && senha === "123") {
+      navigation.navigate("Home", {
+        paramKey: email,
       });
-      console.log(paramKey)
+      console.log(paramKey);
     } else {
       alert("Usuário e senha incorreto!");
     }
@@ -57,16 +58,12 @@ function CampoLogin() {
       </View>
 
       <View style={styles.buttonView}>
-        <Button title="Login" color="#4682B4" onPress={() =>
-            navigation.navigate('Home', {
-              paramKey: email,
-            })
-          } />
+        <Button title="Login" color="#4C37F1" onPress={entrar} />
       </View>
       <View style={styles.buttonView}>
         <Button
           title="Cadastre-se"
-          color="#4682B4"
+          color="#4C37F1"
           onPress={() => navigation.navigate("Cadastro")}
           style={styles.button}
         />

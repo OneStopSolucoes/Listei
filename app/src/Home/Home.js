@@ -1,33 +1,43 @@
 import { useRoute } from "@react-navigation/native";
-import React from "react";
-import { View, Text, Button } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet } from "react-native";
 import NavBar from "../Componentes/NavBar/NavBar";
 
-
 function Home() {
-
+  const route = useRoute();
+  const [teste, setTeste] = useState(route.params.paramKey);
+  console.log(route.params.paramKey)
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "white",
-      }}
-    >
-      <View
-        style={{
-          flex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Text>Home</Text>
-
+    <View style={styles.principal}>
+      <View style={styles.boasVindas}>
+        <Text style={styles.boasVindasText}>
+          Seja Bem vindx:{" "}
+          {teste === "gabriela.muniz" ? "Gabriela Muniz" : teste}
+        </Text>
       </View>
-      <NavBar/>
+
+      <NavBar />
+      {/* // será utilizado logo mais */}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  principal: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
+  },
+  boasVindas: {
+    marginBottom: "170%",
+    width: "100%",
+    borderColor: "gray",
+    borderWidth: 3,
+  },
+  boasVindasText: {
+    fontSize: 20,
+  },
+});
 
 export default Home;

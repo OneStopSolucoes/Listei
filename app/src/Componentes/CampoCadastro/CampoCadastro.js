@@ -52,7 +52,7 @@ function CampoCadastro() {
       <View style={{ marginTop: 20 }}>
         <Button
           title="Cadastre-se"
-          color="#4682B4"
+          color="#4C37F1"
           onPress={() => (navigation.navigate("Login"), alert((nome)+ (email)+ (senha)))}
         />
       </View>
