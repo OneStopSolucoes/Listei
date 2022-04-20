@@ -7,6 +7,7 @@ import Login from "./Login/Login";
 import Home from "./Home/Home";
 import Lista from "./Lista/Lista";
 import Perfil from "./Perfil/Perfil";
+import ModalLista from "./Componentes/Modal/ModalLista";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ function Rotas() {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Lista" component={Lista} />
         <Stack.Screen name="Perfil" component={Perfil} />
+        <Stack.Screen name="ModalLista" component={ModalLista} />
       </Stack.Navigator>
     </NavigationContainer>
   );

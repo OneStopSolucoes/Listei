@@ -1,11 +1,13 @@
-import { useRoute } from "@react-navigation/native";
+
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Button } from "react-native";
 import NavBar from "../Componentes/NavBar/NavBar";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 function Home() {
   const route = useRoute();
   const [teste, setTeste] = useState(route.params.paramKey);
+  const navigation = useNavigation();
   console.log(route.params.paramKey)
   return (
     <View style={styles.principal}>
@@ -15,6 +17,12 @@ function Home() {
           {teste === "gabriela.muniz" ? "Gabriela Muniz" : teste}
         </Text>
       </View>
+      <Button
+        title="Criar Uma Lista"
+        color="#4C37F1"
+        onPress={() => navigation.navigate("ModalLista")}
+        // onPress={() => ModalLista}
+      />
 
       <NavBar />
       {/* // será utilizado logo mais */}
