@@ -42,7 +42,7 @@ function Home() {
             size={24}
             color="white"
             backgroundColor="#4C37F1"
-            onPress={() => navigation.navigate("Lista", { paramKey: nome })}
+            onPress={() => navigation.navigate("ListaCriada", { paramKey: nome })}
           >
             Listas Criadas
           </FontAwesome.Button>

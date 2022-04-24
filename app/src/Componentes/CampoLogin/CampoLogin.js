@@ -14,7 +14,7 @@ function CampoLogin() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [hide, setHide] = useState(true);
-  let paramKey = ""
+  let paramKey = "";
 
   const navigation = useNavigation();
 
@@ -50,9 +50,9 @@ function CampoLogin() {
         />
         <TouchableOpacity onPress={() => setHide(!hide)} style={styles.olho}>
           {hide ? (
-            <Ionicons name="eye" color="fff" size={25} />
-          ) : (
             <Ionicons name="eye-off" color="fff" size={25} />
+          ) : (
+            <Ionicons name="eye" color="fff" size={25} />
           )}
         </TouchableOpacity>
       </View>

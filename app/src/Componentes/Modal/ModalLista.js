@@ -11,12 +11,23 @@ import {
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
+import { MaskedTextInput } from "react-native-mask-text";
+import { AntDesign } from "@expo/vector-icons";
 
 function ModalLista() {
   // const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
   const route = useRoute();
   const [nome, setNome] = useState(route.params.paramKey);
+  const [lista, setlista] = useState(route.params.listKey);
+
+  const [data, setData] = useState(route.params.dataKey);
+  const [local, setLocal] = useState(route.params.localKey);
+  const [nomeLista, setNomeLista] = useState(route.params.listakey);
+  const [maskedValue, setMaskedValue] = useState("");
+  const [unMaskedValue, setUnmaskedValue] = useState("");
+
+  console.log(nome);
 
   return (
     <View style={styles.centeredView}>
@@ -29,17 +40,29 @@ function ModalLista() {
                 type="text"
                 placeholder="Nome da Lista"
                 style={styles.email}
+                onChangeText={setNomeLista}
               ></TextInput>
               <TextInput
                 type="text"
                 placeholder="Local"
                 style={styles.email}
+                onChangeText={setLocal}
               ></TextInput>
-              <TextInput
-                type="data"
-                placeholder="Data"
-                style={styles.email}
-              ></TextInput>
+              <View>
+                <MaskedTextInput
+                  mask="99/99/9999"
+                  onChangeText={(text, rawText) => {
+                    setData(text)
+                    setMaskedValue(text);
+                    setUnmaskedValue(rawText);
+                  }}
+                  style={styles.email}
+                  keyboardType="numeric"
+                  type="data"
+                  placeholder="Data"
+
+                ></MaskedTextInput>
+              </View>
             </View>
             <View style={{ marginTop: 20 }}>
               <Ionicons.Button
@@ -47,7 +70,11 @@ function ModalLista() {
                 color="white"
                 backgroundColor="#4C37F1"
                 size={24}
-                onPress={() => navigation.navigate("Lista", { paramKey: nome })}
+                onPress={() =>
+                  navigation.navigate("Lista", {
+                    listkey: [nomeLista, local, data],
+                  })
+                }
               >
                 Criar
               </Ionicons.Button>
@@ -98,6 +125,7 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center",
+    fontSize: 20,
   },
   email: {
     flexDirection: "row",
