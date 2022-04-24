@@ -8,11 +8,14 @@ import {
   View,
   TextInput,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 
 function ModalLista() {
-  const [modalVisible, setModalVisible] = useState(false);
+  // const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
+  const route = useRoute();
+  const [nome, setNome] = useState(route.params.paramKey);
+
   return (
     <View style={styles.centeredView}>
       <Modal animationType="slide" transparent={true}>
@@ -38,13 +41,16 @@ function ModalLista() {
             </View>
             <View style={{ marginTop: 20 }}>
               <Button
-                onPress={() => navigation.navigate("Lista")}
+                onPress={() => navigation.navigate("Lista", { paramKey: nome })}
                 title="Criar"
+                color="#4C37F1"
               />
-
+            </View>
+            <View style={{ marginTop: 20 }}>
               <Button
-                onPress={() => navigation.navigate("Home")}
+                onPress={() => navigation.navigate("Home", { paramKey: nome })}
                 title="Cancelar"
+                color="#4C37F1"
               />
             </View>
           </View>

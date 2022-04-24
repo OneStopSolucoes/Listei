@@ -1,26 +1,24 @@
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Button, SafeAreaView } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
-import React from "react";
-import { View, Text, StyleSheet } from "react-native";
-import NavBar from "../Componentes/NavBar/NavBar";
-
 function Perfil() {
+  const navigation = useNavigation();
   const route = useRoute();
-
+  const [nome, setNome] = useState(route.params.paramKey);
   return (
-    <View style={styles.principal}>
-    <View style={styles.boasVindas}>
-      <Text style={styles.boasVindasText}>
-        Perfil
-      </Text>
-    </View>
-
-    <NavBar />
-    {/* // será utilizado logo mais */}
-  </View>
+    <SafeAreaView style={styles.principal}>
+      <Text>Perfil</Text>
+      <View style={styles.button}>
+        <Button
+          title="Voltar"
+          color="#4C37F1"
+          onPress={() => navigation.navigate("Home", { paramKey: nome })}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   principal: {
     flex: 1,
@@ -28,14 +26,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "white",
   },
-  boasVindas: {
-    marginBottom: "170%",
-    width: "100%",
-
-  },
-  boasVindasText: {
-    fontSize: 20,
+  button: {
+    marginTop: 20,
   },
 });
+
 
 export default Perfil;

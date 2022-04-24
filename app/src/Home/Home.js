@@ -1,32 +1,55 @@
-
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Button } from "react-native";
+import { View, Text, StyleSheet, Button, SafeAreaView } from "react-native";
 import NavBar from "../Componentes/NavBar/NavBar";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 function Home() {
-  const route = useRoute();
-  const [teste, setTeste] = useState(route.params.paramKey);
   const navigation = useNavigation();
-  console.log(route.params.paramKey)
-  return (
-    <View style={styles.principal}>
-      <View style={styles.boasVindas}>
-        <Text style={styles.boasVindasText}>
-          Seja Bem vindx:{" "}
-          {teste === "gabriela.muniz" ? "Gabriela Muniz" : teste}
-        </Text>
-      </View>
-      <Button
-        title="Criar Uma Lista"
-        color="#4C37F1"
-        onPress={() => navigation.navigate("ModalLista")}
-        // onPress={() => ModalLista}
-      />
+  const route = useRoute();
+  const [nome, setNome] = useState(route.params.paramKey);
+  const [teste, setTeste] = useState(route.params.paramKey);
+  console.log(route.params.paramKey);
 
-      <NavBar />
-      {/* // será utilizado logo mais */}
-    </View>
+  return (
+    <SafeAreaView style={styles.principal}>
+      <View>
+        <View style={styles.boasVindas}>
+          <Text style={styles.boasVindasText}>
+            Seja Bem vindx:{" "}
+            {teste === "gabriela.muniz" ? "Gabriela Muniz" : teste}
+          </Text>
+        </View>
+
+        <View style={styles.button}>
+          <Button
+            title="Criar Uma Lista"
+            color="#4C37F1"
+            onPress={() => navigation.navigate("ModalLista", { paramKey: nome })}
+            // onPress={() => ModalLista}
+          />
+        </View>
+
+        <View style={styles.button}>
+          <Button
+            title="Listas Criadas"
+            color="#4C37F1"
+            onPress={() => navigation.navigate("Lista", { paramKey: nome })}
+          />
+        </View>
+
+        <View style={styles.button}>
+          <Button
+            title="Perfil"
+            color="#4C37F1"
+            onPress={() =>
+              navigation.navigate("Perfil", {
+                paramKey: nome,
+              })
+            }
+          />
+        </View>
+      </View>
+    </SafeAreaView>
   );
 }
 
@@ -38,13 +61,15 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   boasVindas: {
-    marginBottom: "170%",
     width: "100%",
     borderColor: "gray",
     borderWidth: 3,
   },
   boasVindasText: {
     fontSize: 20,
+  },
+  button: {
+    marginTop: 20,
   },
 });
 
