@@ -9,6 +9,8 @@ import {
   TextInput,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 
 function ModalLista() {
   // const [modalVisible, setModalVisible] = useState(false);
@@ -40,18 +42,26 @@ function ModalLista() {
               ></TextInput>
             </View>
             <View style={{ marginTop: 20 }}>
-              <Button
+              <Ionicons.Button
+                name="create"
+                color="white"
+                backgroundColor="#4C37F1"
+                size={24}
                 onPress={() => navigation.navigate("Lista", { paramKey: nome })}
-                title="Criar"
-                color="#4C37F1"
-              />
+              >
+                Criar
+              </Ionicons.Button>
             </View>
             <View style={{ marginTop: 20 }}>
-              <Button
+              <MaterialIcons.Button
+                color="white"
+                backgroundColor="#4C37F1"
+                size={24}
+                name="cancel"
                 onPress={() => navigation.navigate("Home", { paramKey: nome })}
-                title="Cancelar"
-                color="#4C37F1"
-              />
+              >
+                Cancelar
+              </MaterialIcons.Button>
             </View>
           </View>
         </View>

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, StyleSheet, Button, SafeAreaView } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
 
 function Lista() {
   const navigation = useNavigation();
@@ -10,11 +11,15 @@ function Lista() {
     <SafeAreaView style={styles.principal}>
       <Text>Lista</Text>
       <View style={styles.button}>
-        <Button
-          title="Voltar"
-          color="#4C37F1"
+        <Ionicons.Button
+          name="chevron-back-circle-sharp"
+          color="white"
+          backgroundColor="#4C37F1"
+          size={24}
           onPress={() => navigation.navigate("Home", { paramKey: nome })}
-        />
+        >
+          Voltar
+        </Ionicons.Button>
       </View>
     </SafeAreaView>
   );

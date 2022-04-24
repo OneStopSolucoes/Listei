@@ -1,17 +1,19 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, Button, SafeAreaView } from "react-native";
-import NavBar from "../Componentes/NavBar/NavBar";
+import { View, Text, StyleSheet, Image, SafeAreaView } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import { FontAwesome } from "@expo/vector-icons";
+import Logo from "../../assets/Listei.jpeg";
 
 function Home() {
   const navigation = useNavigation();
   const route = useRoute();
   const [nome, setNome] = useState(route.params.paramKey);
   const [teste, setTeste] = useState(route.params.paramKey);
-  console.log(route.params.paramKey);
 
   return (
     <SafeAreaView style={styles.principal}>
+      <Image source={Logo} style={styles.logo} />
       <View>
         <View style={styles.boasVindas}>
           <Text style={styles.boasVindasText}>
@@ -21,32 +23,45 @@ function Home() {
         </View>
 
         <View style={styles.button}>
-          <Button
-            title="Criar Uma Lista"
-            color="#4C37F1"
-            onPress={() => navigation.navigate("ModalLista", { paramKey: nome })}
-            // onPress={() => ModalLista}
-          />
+          <Ionicons.Button
+            name="create"
+            color="white"
+            backgroundColor="#4C37F1"
+            size={24}
+            onPress={() =>
+              navigation.navigate("ModalLista", { paramKey: nome })
+            }
+          >
+            Criar uma Lista
+          </Ionicons.Button>
         </View>
 
         <View style={styles.button}>
-          <Button
-            title="Listas Criadas"
-            color="#4C37F1"
+          <FontAwesome.Button
+            name="th-list"
+            size={24}
+            color="white"
+            backgroundColor="#4C37F1"
             onPress={() => navigation.navigate("Lista", { paramKey: nome })}
-          />
+          >
+            Listas Criadas
+          </FontAwesome.Button>
         </View>
 
         <View style={styles.button}>
-          <Button
-            title="Perfil"
-            color="#4C37F1"
+          <Ionicons.Button
+            name="person"
+            color="white"
+            backgroundColor="#4C37F1"
+            size={24}
             onPress={() =>
               navigation.navigate("Perfil", {
                 paramKey: nome,
               })
             }
-          />
+          >
+            Perfil
+          </Ionicons.Button>
         </View>
       </View>
     </SafeAreaView>
@@ -62,13 +77,16 @@ const styles = StyleSheet.create({
   },
   boasVindas: {
     width: "100%",
-    borderColor: "gray",
-    borderWidth: 3,
   },
   boasVindasText: {
-    fontSize: 20,
+    fontSize: 40,
   },
   button: {
+    marginTop: 20,
+  },
+  logo: {
+    width: 400,
+    height: 200,
     marginTop: 20,
   },
 });
