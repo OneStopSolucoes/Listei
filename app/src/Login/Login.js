@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text, View, Image, StyleSheet } from "react-native";
-import Logo from "../../assets/Listei.jpeg";
+import Logo from "../../assets/Listei.png";
 import CampoLogin from "../Componentes/CampoLogin/CampoLogin";
 import EsquecerSenha from "../Componentes/EsquecerSenha/EsquecerSenha";
 

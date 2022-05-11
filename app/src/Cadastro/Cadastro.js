@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Image, Text, View, TextInput, Button, StyleSheet } from "react-native";
-import Logo from "../../assets/Listei.jpeg";
+import Logo from "../../assets/Listei.png";
 import { useNavigation } from "@react-navigation/native";
 import CampoCadastro from "../Componentes/CampoCadastro/CampoCadastro";
 

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, SafeAreaView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
-import Logo from "../../assets/Listei.jpeg";
+import Logo from "../../assets/Listei.png";
 
 function Home() {
   const navigation = useNavigation();

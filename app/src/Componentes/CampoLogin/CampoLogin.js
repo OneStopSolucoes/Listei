@@ -23,7 +23,7 @@ function CampoLogin() {
       navigation.navigate("Home", {
         paramKey: email,
       });
-      console.log(paramKey);
+
     } else {
       alert("Usuário e senha incorreto!");
     }

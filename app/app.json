@@ -4,9 +4,9 @@
     "slug": "app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/ListeiAbertura.jpeg",
+    "icon": "./assets/ListeiAbertura.png",
     "splash": {
-      "image": "./assets/ListeiAbertura.jpeg",
+      "image": "./assets/ListeiAbertura.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -17,16 +17,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "listei.app"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/ListeiAbertura.jpeg",
+        "foregroundImage": "./assets/ListeiAbertura.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "listei.app"
     },
     "web": {
-      "favicon": "./assets/ListeiAbertura.jpeg"
+      "favicon": "./assets/ListeiAbertura.png"
     }
   }
 }

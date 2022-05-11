@@ -27,7 +27,6 @@ function ModalLista() {
   const [maskedValue, setMaskedValue] = useState("");
   const [unMaskedValue, setUnmaskedValue] = useState("");
 
-  console.log(nome);
 
   return (
     <View style={styles.centeredView}>
