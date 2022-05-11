@@ -11,8 +11,8 @@ import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
 
 function CampoLogin() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [email, setEmail] = useState("Li");
+  const [senha, setSenha] = useState("123");
   const [hide, setHide] = useState(true);
   let paramKey = "";
 

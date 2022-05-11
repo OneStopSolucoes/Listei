@@ -35,5 +35,11 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
   },
+
+  titulo: {
+    fontSize: 30,
+    color: "black",
+    justifyContent: "flex-start",
+  },
 });
 export default ListaCriada;
