@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity, Text, View, TextInput, Button, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import api from "../../services/api";
 
 function CampoCadastro() {
   const [nome, setNome] = useState();
@@ -10,6 +11,18 @@ function CampoCadastro() {
   const [hide, setHide] = useState(true);
 
   const navigation = useNavigation();
+
+  const enviarCadastro = () => {
+    api
+    .post("/register", {username: nome, email: email, password: senha})
+    .then((response) => {
+      console.log(response.data)
+      navigation.navigate("Login")
+    })
+    .catch((error)=> {
+      console.log(error.response)
+    });
+  }
 
   return (
     <View>
@@ -53,7 +66,7 @@ function CampoCadastro() {
         <Button
           title="Cadastre-se"
           color="#4C37F1"
-          onPress={() => (navigation.navigate("Login"), alert((nome)+ (email)+ (senha)))}
+          onPress={enviarCadastro}
         />
       </View>
     </View>
