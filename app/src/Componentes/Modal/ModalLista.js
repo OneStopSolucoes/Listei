@@ -12,7 +12,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { MaskedTextInput } from "react-native-mask-text";
-import { AntDesign } from "@expo/vector-icons";
+import api from "../../services/api";
 
 function ModalLista() {
   // const [modalVisible, setModalVisible] = useState(false);
@@ -26,6 +26,21 @@ function ModalLista() {
   const [nomeLista, setNomeLista] = useState(route.params.listakey);
   const [maskedValue, setMaskedValue] = useState("");
   const [unMaskedValue, setUnmaskedValue] = useState("");
+
+
+  const criarLista = () => {
+    api
+    .post("/lists", {name: nomeLista, place: local, date: data})
+    .then((response) => {
+      console.log(response.data)
+      navigation.navigate("Lista", {
+        listkey: [nomeLista, local, data],
+      })
+    })
+    .catch((error)=> {
+      console.log(error.response)
+    });
+  }
 
 
   return (
@@ -69,11 +84,7 @@ function ModalLista() {
                 color="white"
                 backgroundColor="#4C37F1"
                 size={24}
-                onPress={() =>
-                  navigation.navigate("Lista", {
-                    listkey: [nomeLista, local, data],
-                  })
-                }
+                onPress={criarLista}
               >
                 Criar
               </Ionicons.Button>
