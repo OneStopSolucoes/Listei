@@ -8,18 +8,19 @@ function Lista() {
   const route = useRoute();
   const [array, setArray] = useState(route.params.listkey);
   const [nome, setNome] = useState(route.params.paramKey);
+  let [list, setList] = useState(0)
+
   console.log(array);
 
   const adicionar = () => {
-    return(
-      <View style={styles.item}>
+    let itemList = (  <View style={styles.item}>
       <TextInput style={styles.inputItem} placeholder="Digite um item" />
 
       <TextInput style={styles.inputQuantidade} placeholder="quantidade" />
 
       <TextInput style={styles.inputValor} placeholder="valor" />
-      </View>
-    )
+      </View>)
+    
 
    
   };
