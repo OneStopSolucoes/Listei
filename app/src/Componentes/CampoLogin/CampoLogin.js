@@ -9,25 +9,40 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import api from "../../services/api";
 
 function CampoLogin() {
-  const [email, setEmail] = useState("Li");
-  const [senha, setSenha] = useState("123");
+  const [email, setEmail] = useState();
+  const [senha, setSenha] = useState();
   const [hide, setHide] = useState(true);
   let paramKey = "";
 
   const navigation = useNavigation();
 
-  const entrar = () => {
-    if (email === "Li" && senha === "123") {
+  const efetuarLogin = () => {
+    api
+    .post("/login", {email: email, password: senha})
+    .then((response) => {
+      console.log(response.data)
       navigation.navigate("Home", {
         paramKey: email,
       });
+    })
+    .catch((error)=> {
+      console.log(error.response)
+    });
+  }
 
-    } else {
-      alert("Usuário e senha incorreto!");
-    }
-  };
+  // const entrar = () => {
+  //   if (email === "Li" && senha === "123") {
+  //     navigation.navigate("Home", {
+  //       paramKey: email,
+  //     });
+
+  //   } else {
+  //     alert("Usuário e senha incorreto!");
+  //   }
+  // };
   return (
     <View>
       <View style={styles.email}>
@@ -58,13 +73,13 @@ function CampoLogin() {
       </View>
 
       <View style={styles.buttonView}>
-        <Button title="Login" color="#4C37F1" onPress={entrar} />
+        <Button title="Login" color="#4C37F1" onPress={efetuarLogin} />
       </View>
       <View style={styles.buttonView}>
         <Button
           title="Cadastre-se"
           color="#4C37F1"
-          onPress={() => navigation.navigate("Cadastro")}
+          onPress={() =>  navigation.navigate("Cadastro")}
           style={styles.button}
         />
       </View>

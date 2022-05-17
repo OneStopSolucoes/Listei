@@ -54,10 +54,10 @@ function CampoCadastro() {
           secureTextEntry={hide}
         />
         <TouchableOpacity onPress={() => setHide(!hide)} style={styles.olho}>
-          {hide ? (
-            <Ionicons name="eye" color="fff" size={25} />
-          ) : (
+        {hide ? (
             <Ionicons name="eye-off" color="fff" size={25} />
+          ) : (
+            <Ionicons name="eye" color="fff" size={25} />
           )}
         </TouchableOpacity>
       </View>
