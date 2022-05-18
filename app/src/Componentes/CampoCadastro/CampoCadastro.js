@@ -1,6 +1,13 @@
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity, Text, View, TextInput, Button, StyleSheet } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  TextInput,
+  Button,
+  StyleSheet,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import api from "../../services/api";
 
@@ -11,19 +18,49 @@ function CampoCadastro() {
   const [hide, setHide] = useState(true);
 
   const navigation = useNavigation();
+ 
+  enviarCadastro = (event) => {
+ 
+    event.preventDefault();
 
-  const enviarCadastro = () => {
+     var cadastro = {
+       username: nome,
+       email: email,
+       password: senha
+     }
+    // {username: nome,email: email, password: senha}
     api
-    .post("/register", {username: nome, email: email, password: senha})
-    .then((response) => {
-      console.log(response.data)
-      navigation.navigate("Login")
-    })
-    .catch((error)=> {
-      console.log(error.response)
-    });
-  }
+      .post("register", {cadastro} )
+      .then((response) => {
+        console.log(response.data);
+        navigation.navigate("Login");
+      })
+      .catch((error) => {
+        console.log(error.response);
+        // console.log(formData)
+      });
+  };
 
+  // const enviarCadastro = () => {
+  //   var body = {
+  //     username: nome,
+  //     email: email,
+  //     password: senha,
+  //   };
+
+  //   // {username: nome,email: email, password: senha}
+  //   api({
+  //     method: "post",
+  //     url: "register",
+  //     data: body,
+  //   })
+  //     .then(function (response) {
+  //       console.log(response);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error.response);
+  //     });
+  // };
   return (
     <View>
       <View style={styles.email}>
@@ -54,7 +91,7 @@ function CampoCadastro() {
           secureTextEntry={hide}
         />
         <TouchableOpacity onPress={() => setHide(!hide)} style={styles.olho}>
-        {hide ? (
+          {hide ? (
             <Ionicons name="eye-off" color="fff" size={25} />
           ) : (
             <Ionicons name="eye" color="fff" size={25} />
@@ -63,11 +100,7 @@ function CampoCadastro() {
       </View>
 
       <View style={{ marginTop: 20 }}>
-        <Button
-          title="Cadastre-se"
-          color="#4C37F1"
-          onPress={enviarCadastro}
-        />
+        <Button title="Cadastre-se" color="#4C37F1" onPress={enviarCadastro} />
       </View>
     </View>
   );
