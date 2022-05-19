@@ -19,28 +19,30 @@ function CampoLogin() {
   let nome = "";
 
 
-
   const navigation = useNavigation();
 
   const efetuarLogin = () => {
 
+    if ( email === undefined || senha === undefined) {
+      alert("Preencha TODOS os campos");
+      return;
+    }
+
     const formData = new FormData();
     formData.append('email', email);
     formData.append('password', senha);
-    let message =""
+   
     api
     .post("/login", formData,{headers: {'Content-Type': 'multipart/form-data'}})
     .then((response) => {
       nome=response.data.username
-      console.log(response.data)
       navigation.navigate("Home", {
         paramKey: nome,
         emailKey: email
       });
     })
     .catch((error)=> {
-      console.log(error.response.data.message)
-      message=error.response.data.message
+      alert(error.response.data.message)
       
     });
   }
@@ -95,7 +97,6 @@ function CampoLogin() {
           style={styles.button}
         />
       </View>
-      <Text>{message}</Text>
     </View>
   );
 }

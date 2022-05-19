@@ -20,47 +20,30 @@ function CampoCadastro() {
   const navigation = useNavigation();
 
   enviarCadastro = () => {
- 
-
+    if (nome === undefined || email === undefined || senha === undefined) {
+      alert("Preencha TODOS os campos");
+      return;
+    }
     // {username: nome,email: email, password: senha}
     const formData = new FormData();
-    formData.append('username', nome);
-    formData.append('email', email);
-    formData.append('password', senha);
+    formData.append("username", nome);
+    formData.append("email", email);
+    formData.append("password", senha);
+
+    
 
     api
-      .post("/register", formData,{headers: {'Content-Type': 'multipart/form-data'}})
+      .post("/register", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
       .then((response) => {
-        console.log(response.data);
-        console.log(nome,email,senha)
         navigation.navigate("Login");
       })
       .catch((error) => {
-        console.log(error.response);
-        // console.log(formData)
+        alert(error.response.data.message);
       });
   };
 
-  // const enviarCadastro = () => {
-  //   var form = new FormData();
-  //   form.append("username", nome);
-  //   form.append("email", email);
-  //   form.append("senha", senha);
-
-
-  //   // {username: nome,email: email, password: senha}
-  //   api({
-  //     method: "post",
-  //     url: "/register",
-  //     data: form,
-  //   })
-  //     .then(function (response) {
-  //       console.log(response);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error.response);
-  //     });
-  // };
   return (
     <View>
       <View style={styles.email}>
