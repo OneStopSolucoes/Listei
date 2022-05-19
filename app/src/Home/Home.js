@@ -9,7 +9,7 @@ function Home() {
   const navigation = useNavigation();
   const route = useRoute();
   const [nome, setNome] = useState(route.params.paramKey);
-  const [teste, setTeste] = useState(route.params.paramKey);
+  const [email,setEmail] = useState(route.params.emailKey)
 
   return (
     <SafeAreaView style={styles.principal}>
@@ -18,7 +18,7 @@ function Home() {
         <View style={styles.boasVindas}>
           <Text style={styles.boasVindasText}>
             Seja Bem vindx:{" "}
-            {teste === "gabriela.muniz" ? "Gabriela Muniz" : teste}
+            {nome}
           </Text>
         </View>
 
@@ -57,6 +57,7 @@ function Home() {
             onPress={() =>
               navigation.navigate("Perfil", {
                 paramKey: nome,
+                emailKey: email,
               })
             }
           >

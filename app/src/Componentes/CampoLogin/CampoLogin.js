@@ -5,6 +5,7 @@ import {
   Button,
   StyleSheet,
   TouchableOpacity,
+  Text
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
@@ -15,21 +16,32 @@ function CampoLogin() {
   const [email, setEmail] = useState();
   const [senha, setSenha] = useState();
   const [hide, setHide] = useState(true);
-  let paramKey = "";
+  let nome = "";
+
+
 
   const navigation = useNavigation();
 
   const efetuarLogin = () => {
+
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', senha);
+    let message =""
     api
-    .post("/login", {email: email, password: senha})
+    .post("/login", formData,{headers: {'Content-Type': 'multipart/form-data'}})
     .then((response) => {
+      nome=response.data.username
       console.log(response.data)
       navigation.navigate("Home", {
-        paramKey: email,
+        paramKey: nome,
+        emailKey: email
       });
     })
     .catch((error)=> {
-      console.log(error.response)
+      console.log(error.response.data.message)
+      message=error.response.data.message
+      
     });
   }
 
@@ -83,6 +95,7 @@ function CampoLogin() {
           style={styles.button}
         />
       </View>
+      <Text>{message}</Text>
     </View>
   );
 }

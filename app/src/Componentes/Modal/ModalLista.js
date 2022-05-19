@@ -28,21 +28,6 @@ function ModalLista() {
   const [unMaskedValue, setUnmaskedValue] = useState("");
 
 
-  const criarLista = () => {
-    api
-    .post("/lists", {name: nomeLista, place: local, date: data})
-    .then((response) => {
-      console.log(response.data)
-      navigation.navigate("Lista", {
-        listkey: [nomeLista, local, data],
-      })
-    })
-    .catch((error)=> {
-      console.log(error.response)
-    });
-  }
-
-
   return (
     <View style={styles.centeredView}>
       <Modal animationType="slide" transparent={true}>
