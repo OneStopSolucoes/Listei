@@ -18,21 +18,17 @@ function CampoCadastro() {
   const [hide, setHide] = useState(true);
 
   const navigation = useNavigation();
- 
-  enviarCadastro = (event) => {
- 
-    event.preventDefault();
 
-     var cadastro = {
-       username: nome,
-       email: email,
-       password: senha
-     }
+  enviarCadastro = () => {
+ 
+
     // {username: nome,email: email, password: senha}
+
     api
-      .post("register", {cadastro} )
+      .post("/register",{username: nome,email: email, password: senha})
       .then((response) => {
         console.log(response.data);
+        console.log(nome,email,senha)
         navigation.navigate("Login");
       })
       .catch((error) => {
@@ -42,17 +38,17 @@ function CampoCadastro() {
   };
 
   // const enviarCadastro = () => {
-  //   var body = {
-  //     username: nome,
-  //     email: email,
-  //     password: senha,
-  //   };
+  //   var form = new FormData();
+  //   form.append("username", nome);
+  //   form.append("email", email);
+  //   form.append("senha", senha);
+
 
   //   // {username: nome,email: email, password: senha}
   //   api({
   //     method: "post",
-  //     url: "register",
-  //     data: body,
+  //     url: "/register",
+  //     data: form,
   //   })
   //     .then(function (response) {
   //       console.log(response);
