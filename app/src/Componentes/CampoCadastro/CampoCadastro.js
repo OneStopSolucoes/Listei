@@ -23,9 +23,13 @@ function CampoCadastro() {
  
 
     // {username: nome,email: email, password: senha}
+    const formData = new FormData();
+    formData.append('username', nome);
+    formData.append('email', email);
+    formData.append('password', senha);
 
     api
-      .post("/register",{username: nome,email: email, password: senha})
+      .post("/register", formData,{headers: {'Content-Type': 'multipart/form-data'}})
       .then((response) => {
         console.log(response.data);
         console.log(nome,email,senha)
