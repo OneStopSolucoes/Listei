@@ -1,150 +1,171 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TextInput, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  SafeAreaView,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Ionicons, AntDesign,Entypo  } from "@expo/vector-icons";
-
+import { Ionicons, AntDesign, Entypo } from "@expo/vector-icons";
+import AppList from "./AppList";
+import api from "../services/api";
 function Lista() {
   const navigation = useNavigation();
   const route = useRoute();
-  const [array, setArray] = useState(route.params.listkey);
-  const [nome, setNome] = useState(route.params.paramKey);
-  let [list, setList] = useState(0)
+  // const [array, setArray] = useState(route.params.listkey);
+  // const [nome, setNome] = useState(route.params.paramKey);
 
-  console.log(array);
+  const [item, setItem] = useState();
+  const [listaId, setListaId] = useState(route.params.listIdKey);
+  const [quantidade, setQuantidade] = useState();
+  const [valor, setValor] = useState();
+  let valorTotal = "";
 
-  const adicionar = () => {
-    let itemList = (  <View style={styles.item}>
-      <TextInput style={styles.inputItem} placeholder="Digite um item" />
+  const [list, setList] = useState([]);
 
-      <TextInput style={styles.inputQuantidade} placeholder="quantidade" />
-
-      <TextInput style={styles.inputValor} placeholder="valor" />
-      </View>)
-    
-
-   
+  const adicionarItem = () => {
+    const formData = new FormData();
+    formData.append("list_id", listaId);
+    formData.append("name", item);
+    formData.append("qtd", quantidade);
+    formData.append("price", valor);
+    api
+      .post("/createlistitem", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        console.log(response.data + "aqui");
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
   };
-  return (
-    <SafeAreaView style={styles.principal}>
-      <View style={styles.classTitulo}>
-        <Text style={styles.titulo}>Lista</Text>
-        <View>
-          <Text style={{ color: "black" }}>Nome da Lista: {array[0]}</Text>
-          <Text style={{ color: "black" }}>Local: {array[1]}</Text>
-          <Text style={{ color: "black" }}>Data: {array[2]}</Text>
-        </View>
 
-        <View style={styles.button}>
-          <AntDesign.Button
-            name="plus"
-            color="white"
-            backgroundColor="#4C37F1"
-            size={24}
-            onPress={() => adicionar()}
-          >
-            Adicionar item
-          </AntDesign.Button>
-        </View>
-        <View style={styles.button}>
-          <AntDesign.Button
-            name="calculator"
-            color="white"
-            backgroundColor="#4C37F1"
-            size={24}
-            onPress={() => console.log("calculei")}
-          >
-            Calcular
-          </AntDesign.Button>
-        </View>
-        <View style={styles.button}>
-          <Entypo.Button
-            name="save"
-            color="white"
-            backgroundColor="#4C37F1"
-            size={24}
-            onPress={() => console.log("Salvei")}
-          >
-            Salvar
-          </Entypo.Button>
-        </View>
-        <View style={styles.button}>
-          <Ionicons.Button
-            name="chevron-back-circle-sharp"
-            color="white"
-            backgroundColor="#4C37F1"
-            size={24}
-            onPress={() => navigation.navigate("Home", { paramKey: nome })}
-          >
-            Voltar
-          </Ionicons.Button>
+  return (
+    <ScrollView>
+      <View style={styles.container}>
+        <Text style={styles.title}>Lista</Text>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="O que está faltando em casa?"
+            clearButtonMode="always"
+            onChangeText={setItem}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Digite a quantidade"
+            keyboardType={"numeric"}
+            clearButtonMode="always"
+            onChangeText={setQuantidade}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Valor do Produto"
+            keyboardType={"numeric"}
+            clearButtonMode="always"
+            onChangeText={setValor}
+          />
+          <TouchableOpacity style={styles.button} onPress={adicionarItem}>
+            <Text style={styles.buttonText}>Adicionar</Text>
+          </TouchableOpacity>
+          <ScrollView>
+            <AppList />
+          </ScrollView>
+          <View style={styles.soma}>
+            <Text style={styles.title}>Valor Total: R$</Text>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Calcular</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.buttonText}>Salvar</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  principal: {
+  container: {
     flex: 1,
-
-    backgroundColor: "white",
+    backgroundColor: "#fff",
+    alignItems: "center",
+  },
+  title: {
+    color: "black",
+    fontSize: 20,
+    fontWeight: "bold",
+    marginTop: 50,
+  },
+  inputContainer: {
+    flex: 1,
+    marginTop: 30,
+    width: "90%",
+    padding: 20,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    alignItems: "stretch",
+    backgroundColor: "#fff",
+  },
+  input: {
+    marginTop: 10,
+    height: 40,
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    paddingHorizontal: 24,
+    borderColor: "gray",
+    borderWidth: 1,
+    borderRadius: 5,
+    fontSize: 16,
+    alignItems: "stretch",
   },
   button: {
-    marginTop: 20,
-    // width: "80%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-
-  classTitulo: {
-    marginTop: 35,
-  },
-  titulo: {
-    fontSize: 30,
-    color: "black",
-    justifyContent: "flex-start",
-  },
-  item: {
-    flexDirection: "row",
-    width: "90%",
-
-    height: 50,
-    alignItems: "center",
-
     marginTop: 10,
-  },
-  inputItem: {
-    width: "40%",
-    height: 50,
-    padding: 8,
-    fontSize: 18,
-    justifyContent: "flex-start",
+    height: 30,
+    backgroundColor: "#4C37F1",
     borderRadius: 5,
-    borderColor: "gray",
-    borderWidth: 1,
-    margin: 10,
-  },
-  inputQuantidade: {
-    width: "15%",
-    height: 50,
-    padding: 8,
-    fontSize: 18,
+    paddingHorizontal: 24,
+    fontSize: 16,
+    alignItems: "center",
     justifyContent: "center",
-    borderRadius: 5,
-    borderColor: "gray",
-    borderWidth: 1,
-    margin: 30,
+    elevation: 20,
+    shadowOpacity: 20,
+    shadowColor: "#fff",
   },
-  inputValor: {
-    width: "30%",
-    height: 50,
-    padding: 8,
-    fontSize: 18,
-    justifyContent: "flex-end",
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  buttonCalcular: {
+    marginTop: 10,
+    height: 30,
+    backgroundColor: "#4C37F1",
     borderRadius: 5,
-    borderColor: "gray",
-    borderWidth: 1,
-    margin: 30,
+
+    fontSize: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 20,
+    shadowOpacity: 20,
+    shadowColor: "#fff",
+  },
+  buttonSalvar: {
+    marginTop: 10,
+    height: 30,
+    backgroundColor: "#4C37F1",
+    borderRadius: 5,
+
+    fontSize: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 20,
+    shadowOpacity: 20,
+    shadowColor: "#fff",
   },
 });
 

@@ -20,14 +20,33 @@ function ModalLista() {
   const route = useRoute();
   const [nome, setNome] = useState(route.params.paramKey);
   const [lista, setlista] = useState(route.params.listKey);
+  const [id,setId] =useState(route.params.idKey)
 
   const [data, setData] = useState(route.params.dataKey);
   const [local, setLocal] = useState(route.params.localKey);
   const [nomeLista, setNomeLista] = useState(route.params.listakey);
   const [maskedValue, setMaskedValue] = useState("");
   const [unMaskedValue, setUnmaskedValue] = useState("");
+  let listId = "";
 
-
+  const criarLista = () => {
+    const formData = new FormData();
+    formData.append("user_id", id);
+    formData.append("name", nomeLista);
+    formData.append("place", local);
+    formData.append("date", data);
+    api
+      .post("/createlist ", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        listId =response.data.id
+        navigation.navigate("Lista" , {listIdKey: listId});
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
+  };
   return (
     <View style={styles.centeredView}>
       <Modal animationType="slide" transparent={true}>
@@ -51,7 +70,7 @@ function ModalLista() {
                 <MaskedTextInput
                   mask="99/99/9999"
                   onChangeText={(text, rawText) => {
-                    setData(text)
+                    setData(text);
                     setMaskedValue(text);
                     setUnmaskedValue(rawText);
                   }}
@@ -59,7 +78,6 @@ function ModalLista() {
                   keyboardType="numeric"
                   type="data"
                   placeholder="Data"
-
                 ></MaskedTextInput>
               </View>
             </View>

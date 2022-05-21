@@ -17,6 +17,7 @@ function CampoLogin() {
   const [senha, setSenha] = useState();
   const [hide, setHide] = useState(true);
   let nome = "";
+  let id = "";
 
 
   const navigation = useNavigation();
@@ -35,10 +36,12 @@ function CampoLogin() {
     api
     .post("/login", formData,{headers: {'Content-Type': 'multipart/form-data'}})
     .then((response) => {
+      id=response.data.id
       nome=response.data.username
       navigation.navigate("Home", {
         paramKey: nome,
-        emailKey: email
+        emailKey: email,
+        idKey: id
       });
     })
     .catch((error)=> {

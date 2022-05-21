@@ -10,6 +10,10 @@ function ListaCriada() {
   // const [info, setInfo] = useState(route.params.listKey);
   const [info, setInfo] = useState(["Feira", "Assaí", "12/05/2022"]);
   const [lista, setLista] = useState([1, 2, 3, 4, 5]);
+  const [id,setId] =useState(route.params.idKey)
+  console.log(id)
+
+
 
   return (
     <SafeAreaView style={styles.principal}>
