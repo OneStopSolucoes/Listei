@@ -15,9 +15,6 @@ import api from "../services/api";
 function Lista(props) {
   const navigation = useNavigation();
   const route = useRoute();
-  // const [array, setArray] = useState(route.params.listkey);
-  // const [nome, setNome] = useState(route.params.paramKey);
-
   const [item, setItem] = useState();
   const [listaId, setListaId] = useState(route.params.listIdKey);
   const [quantidade, setQuantidade] = useState();
