@@ -1,28 +1,36 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, ScrollView } from "react-native";
+import { StyleSheet, View, Text, ScrollView, Button } from "react-native";
 import api from "../services/api";
 import AppItem from "./AppItem";
+import ListaCriada from "./ListasCriadas";
+
+
 
 export default function AppList(props) {
-  const [items, setItems] = useState([]);
-let idLista = props.listaId
+  const [items,setItems] = useState([])
+  const[idLista, setIdlista] = useState(props.id)
+  console.log(props.id)
 
-  useEffect(() => {
-    api.get("/list", idLista)
+  async function carregaLista() {
+    // await api.get(`/listitems/${idLista}`)
+    await api.get(`/listitems/${idLista}`)
     .then((response)=> {
-      console.log(response.data + "aqui!!!")
+      // console.log(response.data)
       setItems(response.data)
       console.log(items)
     })
     .catch((error)=> {
-      console.log(error)
+      console.log(error.response+ "tô no erro")
     })
+  }
+
+  useEffect(() => {
+  carregaLista()
   },[]);
 
-  if(items === "") {
-    return <View><Text>Adicione</Text></View>;
-  }
+ 
+
   return (
     <View>
       <View>
@@ -34,8 +42,11 @@ let idLista = props.listaId
               <AppItem
                 key={item.id}
                 id={item.id}
-                item={item.quantidade + "  de " + item.descricao + item}
+                item={item.name}
+                quantidade={item.qtd}
+                preco={item.price}
               />
+            
             </View>
           );
         })}

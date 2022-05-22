@@ -13,8 +13,8 @@ import { Ionicons } from "@expo/vector-icons";
 import api from "../../services/api";
 
 function CampoLogin() {
-  const [email, setEmail] = useState();
-  const [senha, setSenha] = useState();
+  const [email, setEmail] = useState("gabrielasmunizf@gmail.com");
+  const [senha, setSenha] = useState("123");
   const [hide, setHide] = useState(true);
   let nome = "";
   let id = "";

@@ -14,16 +14,6 @@ function Home() {
   const [email,setEmail] = useState(route.params.emailKey);
   const [id,setId] =useState(route.params.idKey)
 
-  const listas = () => {
-    api.get("/list"/id)
-    .then((response)=> {
-      console.log(response.data)
-      navigation.navigate("ListaCriada", { paramKey: nome, idKey: id })
-    })
-    .catch((error)=> {
-      console.log(error)
-    })
-  }
 
   return (
     <SafeAreaView style={styles.principal}>
@@ -56,7 +46,7 @@ function Home() {
             size={24}
             color="white"
             backgroundColor="#4C37F1"
-            onPress={listas}
+            onPress={ () => navigation.navigate("ListaCriada", { paramKey: nome, idKey: id })}
           >
             Listas Criadas
           </FontAwesome.Button>

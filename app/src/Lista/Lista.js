@@ -12,7 +12,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons, AntDesign, Entypo } from "@expo/vector-icons";
 import AppList from "./AppList";
 import api from "../services/api";
-function Lista() {
+function Lista(props) {
   const navigation = useNavigation();
   const route = useRoute();
   // const [array, setArray] = useState(route.params.listkey);
@@ -23,7 +23,7 @@ function Lista() {
   const [quantidade, setQuantidade] = useState();
   const [valor, setValor] = useState();
   let valorTotal = "";
-
+console.log(listaId)
   const [list, setList] = useState([]);
 
   const adicionarItem = () => {
@@ -33,14 +33,14 @@ function Lista() {
     formData.append("qtd", quantidade);
     formData.append("price", valor);
     api
-      .post("/createlistitem", formData, {
+      .post("/createlistitem ", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => {
-        console.log(response.data + "aqui");
+        console.log(response.data);
       })
       .catch((error) => {
-        console.log(error.response.data);
+        console.log(error.response.data + "olá");
       });
   };
 
@@ -73,7 +73,7 @@ function Lista() {
             <Text style={styles.buttonText}>Adicionar</Text>
           </TouchableOpacity>
           <ScrollView>
-            <AppList />
+            <AppList key={listaId} id={listaId}/>
           </ScrollView>
           <View style={styles.soma}>
             <Text style={styles.title}>Valor Total: R$</Text>
