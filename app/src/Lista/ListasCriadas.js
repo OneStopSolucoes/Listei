@@ -46,7 +46,7 @@ function ListaCriada() {
             }
           >
             <View>
-              <Text style={styles.textName}>{list.name} id:{list.id}</Text>
+              <Text style={styles.textName}>{list.name} </Text>
             </View>
             {/* <View style={{ marginTop: 20 }}>
               <Text style={styles.textPlace}>Local:{list.place}</Text>

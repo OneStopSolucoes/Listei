@@ -12,7 +12,7 @@ export default function AppList(props) {
   const route = useRoute();
   const [items,setItems] = useState([])
   const[idLista, setIdlista] = useState(props.id)
-  const[listaId,setListaId] = useState(route.params.listaKey)
+  const [listaId, setListaId] = useState(props.listaId);
   console.log(idLista, listaId)
 
   async function carregaLista() {

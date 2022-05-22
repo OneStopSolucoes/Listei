@@ -16,12 +16,13 @@ function Lista(props) {
   const navigation = useNavigation();
   const route = useRoute();
   const [item, setItem] = useState();
-  const [listaId, setListaId] = useState(route.params.listIdKey);
+  const [listaId, setListaId] = useState(route.params.listkey);
   const [quantidade, setQuantidade] = useState();
   const [valor, setValor] = useState();
   let valorTotal = "";
-console.log(listaId)
+
   const [list, setList] = useState([]);
+  console.log(listaId)
 
   const adicionarItem = () => {
     const formData = new FormData();
