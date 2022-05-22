@@ -4,7 +4,7 @@ import api from "../services/api";
 
 
 function AppItem(props) {
-console.log(props.item, props.quantidade, props.valor)
+
   return (
     <View>
       <Text>{props.item}</Text>

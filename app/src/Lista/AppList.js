@@ -1,20 +1,23 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import { StyleSheet, View, Text, ScrollView, Button } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import api from "../services/api";
 import AppItem from "./AppItem";
-import ListaCriada from "./ListasCriadas";
+
 
 
 
 export default function AppList(props) {
+  const route = useRoute();
   const [items,setItems] = useState([])
   const[idLista, setIdlista] = useState(props.id)
-  console.log(props.id)
+  const [listaId, setListaId] = useState(props.listaId);
+  console.log(idLista, listaId)
 
   async function carregaLista() {
     // await api.get(`/listitems/${idLista}`)
-    await api.get(`/listitems/${idLista}`)
+    await api.get(`/listitems/${idLista === undefined ? listaId: idLista}`)
     .then((response)=> {
       // console.log(response.data)
       setItems(response.data)

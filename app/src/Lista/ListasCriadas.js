@@ -6,24 +6,19 @@ import api from "../services/api";
 import AppList from "./AppList";
 
 
-function ListaCriada(props) {
+function ListaCriada() {
   const navigation = useNavigation();
   const route = useRoute();
   const [nome, setNome] = useState(route.params.paramKey);
-  // const [info, setInfo] = useState(route.params.listKey);
-  // const [info, setInfo] = useState(["Feira", "Assaí", "12/05/2022"]);
   const [lista, setLista] = useState([]);
   const [idUser, setIdUser] = useState(route.params.idKey);
-  const [id, setId] = useState();
-  console.log(id);
+
 
   async function carregaListasUsuario() {
     await api
       .get(`/userlists/${idUser}`)
       .then((response) => {
         setLista(response.data);
-        console.log(lista);
-        setId(response.data.id)
       })
       .catch((error) => {
         console.log(error);
@@ -46,12 +41,12 @@ function ListaCriada(props) {
             key={list}
             onPress={() =>
               navigation.navigate("Lista", {
-                listkey: lista.id,
+                listkey: list.id,
               })
             }
           >
             <View>
-              <Text style={styles.textName}>{list.name}</Text>
+              <Text style={styles.textName}>{list.name} </Text>
             </View>
             {/* <View style={{ marginTop: 20 }}>
               <Text style={styles.textPlace}>Local:{list.place}</Text>
