@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { TouchableOpacity, Text, View, TextInput, Button, StyleSheet } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  TextInput,
+  Button,
+  StyleSheet,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import api from "../../services/api";
 
 function CampoCadastro() {
   const [nome, setNome] = useState();
@@ -10,6 +18,31 @@ function CampoCadastro() {
   const [hide, setHide] = useState(true);
 
   const navigation = useNavigation();
+
+  enviarCadastro = () => {
+    if (nome === undefined || email === undefined || senha === undefined) {
+      alert("Preencha TODOS os campos");
+      return;
+    }
+    // {username: nome,email: email, password: senha}
+    const formData = new FormData();
+    formData.append("username", nome);
+    formData.append("email", email);
+    formData.append("password", senha);
+
+    
+
+    api
+      .post("/register", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        navigation.navigate("Login");
+      })
+      .catch((error) => {
+        alert(error.response.data.message);
+      });
+  };
 
   return (
     <View>
@@ -42,19 +75,15 @@ function CampoCadastro() {
         />
         <TouchableOpacity onPress={() => setHide(!hide)} style={styles.olho}>
           {hide ? (
-            <Ionicons name="eye" color="fff" size={25} />
-          ) : (
             <Ionicons name="eye-off" color="fff" size={25} />
+          ) : (
+            <Ionicons name="eye" color="fff" size={25} />
           )}
         </TouchableOpacity>
       </View>
 
       <View style={{ marginTop: 20 }}>
-        <Button
-          title="Cadastre-se"
-          color="#4C37F1"
-          onPress={() => (navigation.navigate("Login"), alert((nome)+ (email)+ (senha)))}
-        />
+        <Button title="Cadastre-se" color="#4C37F1" onPress={enviarCadastro} />
       </View>
     </View>
   );

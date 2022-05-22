@@ -4,12 +4,16 @@ import { Ionicons } from "@expo/vector-icons";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { FontAwesome } from "@expo/vector-icons";
 import Logo from "../../assets/Listei.png";
+import api from "../services/api";
+
 
 function Home() {
   const navigation = useNavigation();
   const route = useRoute();
   const [nome, setNome] = useState(route.params.paramKey);
-  const [teste, setTeste] = useState(route.params.paramKey);
+  const [email,setEmail] = useState(route.params.emailKey);
+  const [id,setId] =useState(route.params.idKey)
+
 
   return (
     <SafeAreaView style={styles.principal}>
@@ -18,7 +22,7 @@ function Home() {
         <View style={styles.boasVindas}>
           <Text style={styles.boasVindasText}>
             Seja Bem vindx:{" "}
-            {teste === "gabriela.muniz" ? "Gabriela Muniz" : teste}
+            {nome}
           </Text>
         </View>
 
@@ -29,7 +33,7 @@ function Home() {
             backgroundColor="#4C37F1"
             size={24}
             onPress={() =>
-              navigation.navigate("ModalLista", { paramKey: nome })
+              navigation.navigate("ModalLista", { paramKey: nome,idKey: id })
             }
           >
             Criar uma Lista
@@ -42,7 +46,7 @@ function Home() {
             size={24}
             color="white"
             backgroundColor="#4C37F1"
-            onPress={() => navigation.navigate("ListaCriada", { paramKey: nome })}
+            onPress={ () => navigation.navigate("ListaCriada", { paramKey: nome, idKey: id })}
           >
             Listas Criadas
           </FontAwesome.Button>
@@ -57,6 +61,7 @@ function Home() {
             onPress={() =>
               navigation.navigate("Perfil", {
                 paramKey: nome,
+                emailKey: email,
               })
             }
           >

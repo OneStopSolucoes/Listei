@@ -5,29 +5,61 @@ import {
   Button,
   StyleSheet,
   TouchableOpacity,
+  Text
 } from "react-native";
 
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
+import api from "../../services/api";
 
 function CampoLogin() {
-  const [email, setEmail] = useState("Li");
+  const [email, setEmail] = useState("gabrielasmunizf@gmail.com");
   const [senha, setSenha] = useState("123");
   const [hide, setHide] = useState(true);
-  let paramKey = "";
+  let nome = "";
+  let id = "";
+
 
   const navigation = useNavigation();
 
-  const entrar = () => {
-    if (email === "Li" && senha === "123") {
-      navigation.navigate("Home", {
-        paramKey: email,
-      });
+  const efetuarLogin = () => {
 
-    } else {
-      alert("Usuário e senha incorreto!");
+    if ( email === undefined || senha === undefined) {
+      alert("Preencha TODOS os campos");
+      return;
     }
-  };
+
+    const formData = new FormData();
+    formData.append('email', email);
+    formData.append('password', senha);
+   
+    api
+    .post("/login", formData,{headers: {'Content-Type': 'multipart/form-data'}})
+    .then((response) => {
+      id=response.data.id
+      nome=response.data.username
+      navigation.navigate("Home", {
+        paramKey: nome,
+        emailKey: email,
+        idKey: id
+      });
+    })
+    .catch((error)=> {
+      alert(error.response.data.message)
+      
+    });
+  }
+
+  // const entrar = () => {
+  //   if (email === "Li" && senha === "123") {
+  //     navigation.navigate("Home", {
+  //       paramKey: email,
+  //     });
+
+  //   } else {
+  //     alert("Usuário e senha incorreto!");
+  //   }
+  // };
   return (
     <View>
       <View style={styles.email}>
@@ -58,13 +90,13 @@ function CampoLogin() {
       </View>
 
       <View style={styles.buttonView}>
-        <Button title="Login" color="#4C37F1" onPress={entrar} />
+        <Button title="Login" color="#4C37F1" onPress={efetuarLogin} />
       </View>
       <View style={styles.buttonView}>
         <Button
           title="Cadastre-se"
           color="#4C37F1"
-          onPress={() => navigation.navigate("Cadastro")}
+          onPress={() =>  navigation.navigate("Cadastro")}
           style={styles.button}
         />
       </View>

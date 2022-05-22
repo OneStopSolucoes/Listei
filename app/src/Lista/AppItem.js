@@ -1,11 +1,15 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Button } from "react-native";
+import api from "../services/api";
 
 
 function AppItem(props) {
+console.log(props.item, props.quantidade, props.valor)
   return (
     <View>
       <Text>{props.item}</Text>
+      <Text>{props.quantidade}</Text>
+      <Text>{props.valor}</Text>
       <View>
         <TouchableOpacity style={styles.deleteButton}>
           <Text style={styles.buttonText}>X</Text>
@@ -17,6 +21,7 @@ function AppItem(props) {
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: {

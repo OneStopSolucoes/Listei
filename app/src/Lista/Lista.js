@@ -11,15 +11,38 @@ import {
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Ionicons, AntDesign, Entypo } from "@expo/vector-icons";
 import AppList from "./AppList";
-
-function Lista() {
+import api from "../services/api";
+function Lista(props) {
   const navigation = useNavigation();
   const route = useRoute();
-  const [array, setArray] = useState(route.params.listkey);
-  const [nome, setNome] = useState(route.params.paramKey);
-  let [list, setList] = useState(0);
+  // const [array, setArray] = useState(route.params.listkey);
+  // const [nome, setNome] = useState(route.params.paramKey);
 
-  console.log(array);
+  const [item, setItem] = useState();
+  const [listaId, setListaId] = useState(route.params.listIdKey);
+  const [quantidade, setQuantidade] = useState();
+  const [valor, setValor] = useState();
+  let valorTotal = "";
+console.log(listaId)
+  const [list, setList] = useState([]);
+
+  const adicionarItem = () => {
+    const formData = new FormData();
+    formData.append("list_id", listaId);
+    formData.append("name", item);
+    formData.append("qtd", quantidade);
+    formData.append("price", valor);
+    api
+      .post("/createlistitem ", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response.data + "olá");
+      });
+  };
 
   return (
     <ScrollView>
@@ -30,24 +53,27 @@ function Lista() {
             style={styles.input}
             placeholder="O que está faltando em casa?"
             clearButtonMode="always"
+            onChangeText={setItem}
           />
           <TextInput
             style={styles.input}
             placeholder="Digite a quantidade"
             keyboardType={"numeric"}
             clearButtonMode="always"
+            onChangeText={setQuantidade}
           />
           <TextInput
             style={styles.input}
             placeholder="Valor do Produto"
             keyboardType={"numeric"}
             clearButtonMode="always"
+            onChangeText={setValor}
           />
-          <TouchableOpacity style={styles.button}>
+          <TouchableOpacity style={styles.button} onPress={adicionarItem}>
             <Text style={styles.buttonText}>Adicionar</Text>
           </TouchableOpacity>
           <ScrollView>
-            <AppList />
+            <AppList key={listaId} id={listaId}/>
           </ScrollView>
           <View style={styles.soma}>
             <Text style={styles.title}>Valor Total: R$</Text>
