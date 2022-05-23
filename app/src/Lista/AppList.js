@@ -13,15 +13,19 @@ export default function AppList(props) {
   const [items,setItems] = useState([])
   const[idLista, setIdlista] = useState(props.id)
   const [listaId, setListaId] = useState(props.listaId);
-  console.log(idLista, listaId)
+
+
+  var total = items.reduce(getTotal, 0);
+  function getTotal(total, item) {
+   return total + (item.price * item.qtd);
+  }
+
+
 
   async function carregaLista() {
     await api.get(`/listitems/${idLista === undefined ? listaId: idLista}`)
     .then((response)=> {
-      // console.log(response.data)
       setItems(response.data)
-      console.log(items)
-      console.log(response.data)
     })
     .catch((error)=> {
       console.log(error.response+ "tô no erro")
@@ -32,7 +36,7 @@ export default function AppList(props) {
   carregaLista()
   },[]);
 
- 
+
 
   return (
     <View>
@@ -54,6 +58,7 @@ export default function AppList(props) {
           );
         })}
         <View style={styles.item}></View>
+        <Text style={styles.title}>Valor Total: R${total} </Text>
       </View>
     </View>
   );

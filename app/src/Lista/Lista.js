@@ -20,10 +20,11 @@ function Lista(props) {
   const [quantidade, setQuantidade] = useState();
   const [valor, setValor] = useState();
   const [nome, setNome] = useState(route.params.paramKey);
-  let valorTotal = "";
 
-  const [list, setList] = useState([]);
-  console.log(listaId)
+  
+
+  
+  
 
   const adicionarItem = () => {
     const formData = new FormData();
@@ -75,7 +76,6 @@ function Lista(props) {
             <AppList key={listaId} id={listaId}/>
           </ScrollView>
           <View style={styles.soma}>
-            <Text style={styles.title}>Valor Total: R$</Text>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>Calcular</Text>
             </TouchableOpacity>

@@ -5,6 +5,7 @@ import api from "../services/api";
 
 function AppItem(props) {
 
+  
   return (
     <View>
       <View style={styles.viewText}>
@@ -20,6 +21,7 @@ function AppItem(props) {
         <TouchableOpacity style={styles.editButton}>
           <Text style={styles.buttonText}>Editar</Text>
         </TouchableOpacity>
+
       </View>
     </View>
   );
