@@ -19,7 +19,6 @@ function ModalLista() {
   const navigation = useNavigation();
   const route = useRoute();
   const [nome, setNome] = useState(route.params.paramKey);
-  const [lista, setlista] = useState(route.params.listKey);
   const [id,setId] =useState(route.params.idKey)
 
   const [data, setData] = useState(route.params.dataKey);
@@ -41,7 +40,7 @@ function ModalLista() {
       })
       .then((response) => {
         listId =response.data.id
-        navigation.navigate("Lista" , {listIdKey: listId});
+        navigation.navigate("Lista" , {listIdKey: listId, paramKey: nome});
       })
       .catch((error) => {
         alert(error.response.data.message);

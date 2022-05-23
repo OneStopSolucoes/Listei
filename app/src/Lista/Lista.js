@@ -19,6 +19,7 @@ function Lista(props) {
   const [listaId, setListaId] = useState(route.params.listkey);
   const [quantidade, setQuantidade] = useState();
   const [valor, setValor] = useState();
+  const [nome, setNome] = useState(route.params.paramKey);
   let valorTotal = "";
 
   const [list, setList] = useState([]);
@@ -80,6 +81,9 @@ function Lista(props) {
             </TouchableOpacity>
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>Salvar</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonVoltar} onPress={() => navigation.navigate("ListaCriada", {paramKey: nome})}>
+              <Text style={styles.buttonText}>Voltar</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -156,6 +160,19 @@ const styles = StyleSheet.create({
     marginTop: 10,
     height: 30,
     backgroundColor: "#4C37F1",
+    borderRadius: 5,
+
+    fontSize: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 20,
+    shadowOpacity: 20,
+    shadowColor: "#fff",
+  },
+  buttonVoltar: {
+    marginTop: 10,
+    height: 30,
+    backgroundColor: "grey",
     borderRadius: 5,
 
     fontSize: 16,
