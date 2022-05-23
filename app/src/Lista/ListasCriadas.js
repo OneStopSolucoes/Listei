@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, Button, SafeAreaView } from "react-native";
+import { View, Text, StyleSheet, ScrollView, SafeAreaView } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 import api from "../services/api";
 import AppList from "./AppList";
-
 
 function ListaCriada() {
   const navigation = useNavigation();
@@ -12,7 +11,6 @@ function ListaCriada() {
   const [nome, setNome] = useState(route.params.paramKey);
   const [lista, setLista] = useState([]);
   const [idUser, setIdUser] = useState(route.params.idKey);
-
 
   async function carregaListasUsuario() {
     await api
@@ -29,56 +27,54 @@ function ListaCriada() {
   }, []);
 
   return (
-    <SafeAreaView style={styles.principal}>
-      <Text style={styles.title}>Lista Criadas</Text>
-      <View style={styles.button}>
-        {lista?.map((list) => (
-          <AntDesign.Button
-            name="shoppingcart"
-            styles={styles.lista}
-            backgroundColor="#4C37F1"
-            size={24}
-            key={list}
-            onPress={() =>
-              navigation.navigate("Lista", {
-                listkey: list.id,
-              })
-            }
-          >
+    <ScrollView>
+      <View style={styles.principal}>
+        <Text style={styles.title}>Lista Criadas</Text>
+        <View style={styles.button}>
+          {lista?.map((list) => (
             <View>
-              <Text style={styles.textName}>{list.name} </Text>
+              <View style={styles.item}></View>
+              <AntDesign.Button
+                name="shoppingcart"
+                size={24}
+                style={styles.lista}
+                color="black"
+                key={list}
+                onPress={() =>
+                  navigation.navigate("Lista", {
+                    listkey: list.id,
+                  })
+                }
+              >
+                <View>
+                  <Text style={styles.textName}>{list.name} </Text>
+                </View>
+              </AntDesign.Button>
             </View>
-            {/* <View style={{ marginTop: 20 }}>
-              <Text style={styles.textPlace}>Local:{list.place}</Text>
-            </View>
-            <View style={{ marginTop: 40 }}>
-            <Text style={styles.textData}>Data:{list.date}</Text>
-            </View> */}
-           
-          </AntDesign.Button>
-        ))}
-        <View style={styles.voltar}>
-          <Ionicons.Button
-            name="chevron-back-circle-sharp"
-            color="white"
-            backgroundColor="#4C37F1"
-            size={24}
-            onPress={() => navigation.navigate("Home", { paramKey: nome })}
-          >
-            Voltar
-          </Ionicons.Button>
+          ))}
+          <View style={styles.item}></View>
+          <View style={styles.voltar}>
+            <Ionicons.Button
+              name="chevron-back-circle-sharp"
+              color="white"
+              backgroundColor="grey"
+              size={24}
+              onPress={() => navigation.navigate("Home", { paramKey: nome })}
+            >
+              Voltar
+            </Ionicons.Button>
+          </View>
         </View>
       </View>
-    </SafeAreaView>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   principal: {
     flex: 1,
-    justifyContent: "center",
+    backgroundColor: "#fff",
     alignItems: "center",
-    backgroundColor: "white",
   },
   button: {
     marginTop: 20,
@@ -94,12 +90,13 @@ const styles = StyleSheet.create({
     color: "black",
     fontSize: 20,
     fontWeight: "bold",
-    marginTop: 25,
+    marginTop: 50,
   },
   lista: {
-    color: "white",
-    height: 30,
-    width: 80,
+    color: "black",
+    height: 60,
+    width: 400,
+    backgroundColor: "white",
   },
   voltar: {
     marginTop: 50,
@@ -107,17 +104,21 @@ const styles = StyleSheet.create({
   },
   textName: {
     fontSize: 16,
-    color: "white",
+    color: "black",
   },
   textPlace: {
     fontSize: 14,
     color: "white",
-
   },
   textData: {
     fontSize: 12,
     color: "white",
-
+  },
+  item: {
+    borderWidth: 1,
+    borderColor: "grey",
+    marginTop: 10,
+    width: 400,
   },
 });
 export default ListaCriada;
