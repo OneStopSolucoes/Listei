@@ -79,9 +79,6 @@ function Lista(props) {
             <TouchableOpacity style={styles.button}>
               <Text style={styles.buttonText}>Calcular</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
-              <Text style={styles.buttonText}>Salvar</Text>
-            </TouchableOpacity>
             <TouchableOpacity style={styles.buttonVoltar} onPress={() => navigation.navigate("ListaCriada", {paramKey: nome})}>
               <Text style={styles.buttonText}>Voltar</Text>
             </TouchableOpacity>

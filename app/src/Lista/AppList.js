@@ -16,12 +16,12 @@ export default function AppList(props) {
   console.log(idLista, listaId)
 
   async function carregaLista() {
-    // await api.get(`/listitems/${idLista}`)
     await api.get(`/listitems/${idLista === undefined ? listaId: idLista}`)
     .then((response)=> {
       // console.log(response.data)
       setItems(response.data)
       console.log(items)
+      console.log(response.data)
     })
     .catch((error)=> {
       console.log(error.response+ "tô no erro")
@@ -53,6 +53,7 @@ export default function AppList(props) {
             </View>
           );
         })}
+        <View style={styles.item}></View>
       </View>
     </View>
   );

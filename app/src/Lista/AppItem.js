@@ -7,10 +7,13 @@ function AppItem(props) {
 
   return (
     <View>
-      <Text>{props.item}</Text>
-      <Text>{props.quantidade}</Text>
-      <Text>{props.valor}</Text>
-      <View>
+      <View style={styles.viewText}>
+      <Text style={styles.textItem}>{props.item}</Text>
+      <Text>Quantidade:{props.quantidade}</Text>
+      <Text>Valor: R${props.preco}</Text>
+      </View>
+ 
+      <View style={styles.viewButton}>
         <TouchableOpacity style={styles.deleteButton}>
           <Text style={styles.buttonText}>X</Text>
         </TouchableOpacity>
@@ -70,8 +73,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   textItem: {
-    fontSize: 20,
+    fontSize: 18,
+    color: "black",
+    fontWeight: "bold",
+    marginTop: 25,
+
   },
+  viewText:{
+
+  },
+  viewButton:{
+    marginLeft:240,
+    marginTop: -80,
+  }
 });
 
 export default AppItem;
