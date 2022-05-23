@@ -136,10 +136,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 20,
     shadowColor: "#fff",
   },
-  buttonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
+  
   buttonCalcular: {
     marginTop: 10,
     height: 30,
@@ -165,6 +162,10 @@ const styles = StyleSheet.create({
     elevation: 20,
     shadowOpacity: 20,
     shadowColor: "#fff",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
   buttonVoltar: {
     marginTop: 10,

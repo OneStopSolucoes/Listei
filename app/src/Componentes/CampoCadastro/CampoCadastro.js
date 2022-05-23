@@ -30,14 +30,13 @@ function CampoCadastro() {
     formData.append("email", email);
     formData.append("password", senha);
 
-    
-
     api
       .post("/register", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => {
         navigation.navigate("Login");
+        alert(response.data.message);
       })
       .catch((error) => {
         alert(error.response.data.message);
@@ -82,9 +81,15 @@ function CampoCadastro() {
         </TouchableOpacity>
       </View>
 
-      <View style={{ marginTop: 20 }}>
-        <Button title="Cadastre-se" color="#4C37F1" onPress={enviarCadastro} />
-      </View>
+      <TouchableOpacity style={styles.buttonCadastro} onPress={enviarCadastro}>
+        <Text style={styles.buttonText}>Cadastro</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.buttonVoltar}
+        onPress={() => navigation.navigate("Login")}
+      >
+        <Text style={styles.buttonText}>Voltar</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -130,6 +135,34 @@ const styles = StyleSheet.create({
   buttonView: {
     marginTop: 15,
     justifyContent: "center",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  buttonVoltar: {
+    marginTop: 10,
+    height: 50,
+    backgroundColor: "grey",
+    borderRadius: 5,
+    fontSize: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 20,
+    shadowOpacity: 20,
+    shadowColor: "#fff",
+  },
+  buttonCadastro: {
+    marginTop: 10,
+    height: 50,
+    backgroundColor: "#4C37F1",
+    borderRadius: 5,
+    fontSize: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 20,
+    shadowOpacity: 20,
+    shadowColor: "#fff",
   },
 });
 
