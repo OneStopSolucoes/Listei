@@ -1,32 +1,62 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Button } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
 import api from "../services/api";
 
-
 function AppItem(props) {
+  const deletarItem = () => {
+    const formData = new FormData();
+    formData.append("listitem_id", props.id);
+    api
+      .post("/deletelistitem ", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response.data + "olá");
+      });
+  };
 
+  function handleDeletePress() {
+    Alert.alert(
+      "Atenção",
+      "Você tem certeza que deseja excluir este item?",
+      [
+        {
+          text: "Não",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel",
+        },
+        { text: "Sim", onPress: deletarItem() },
+      ],
+      { cancelable: false }
+    );
+  }
   
+ 
   return (
     <View>
       <View style={styles.viewText}>
-      <Text style={styles.textItem}>{props.item}</Text>
-      <Text>Quantidade:{props.quantidade}</Text>
-      <Text>Valor: R${props.preco}</Text>
+        <Text style={styles.textItem}>{props.item}</Text>
+        <Text>Quantidade:{props.quantidade}</Text>
+        <Text>Valor: R${props.preco}</Text>
       </View>
- 
+
       <View style={styles.viewButton}>
-        <TouchableOpacity style={styles.deleteButton}>
+        <TouchableOpacity
+          style={styles.deleteButton}
+          onPress={handleDeletePress}
+        >
           <Text style={styles.buttonText}>X</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.editButton}>
           <Text style={styles.buttonText}>Editar</Text>
         </TouchableOpacity>
-
       </View>
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   container: {
@@ -79,15 +109,12 @@ const styles = StyleSheet.create({
     color: "black",
     fontWeight: "bold",
     marginTop: 25,
-
   },
-  viewText:{
-
-  },
-  viewButton:{
-    marginLeft:240,
+  viewText: {},
+  viewButton: {
+    marginLeft: 240,
     marginTop: -80,
-  }
+  },
 });
 
 export default AppItem;
