@@ -1,13 +1,28 @@
-import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Alert } from "react-native";
+import React, { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Alert,
+  Modal,
+  Pressable,
+  TextInput,
+} from "react-native";
 import api from "../services/api";
 
 function AppItem(props) {
+  const [modalVisible, setModalVisible] = useState(false);
+  const [nomeNovo, setNomeNovo] = useState(props.item);
+  const [quantidadeNovo, setQuantidadeNovo] = useState(props.quantidade);
+  const [precoNovo, setPrecoNovo] = useState(props.preco);
+
   const deletarItem = () => {
     const formData = new FormData();
     formData.append("listitem_id", props.id);
+
     api
-      .post("/deletelistitem ", formData, {
+      .post("/deletelistitem  ", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => {
@@ -18,6 +33,24 @@ function AppItem(props) {
       });
   };
 
+  const editarItem = () => {
+    const formData = new FormData();
+    formData.append("listitem_id", props.id);
+    formData.append("name", nomeNovo);
+    formData.append("qtd", quantidadeNovo);
+    formData.append("price", precoNovo);
+    api
+      .post("/editlistitem ", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        console.log(response.data);
+        setModalVisible(!modalVisible);
+      })
+      .catch((error) => {
+        console.log(error.response.data + "olá");
+      });
+  };
   function handleDeletePress() {
     Alert.alert(
       "Atenção",
@@ -33,8 +66,7 @@ function AppItem(props) {
       { cancelable: false }
     );
   }
-  
- 
+
   return (
     <View>
       <View style={styles.viewText}>
@@ -50,9 +82,62 @@ function AppItem(props) {
         >
           <Text style={styles.buttonText}>X</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.editButton}>
+        <Pressable
+          style={styles.editButton}
+          onPress={() => setModalVisible(true)}
+        >
           <Text style={styles.buttonText}>Editar</Text>
-        </TouchableOpacity>
+        </Pressable>
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              setModalVisible(!modalVisible);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.modalText}>Hello World!</Text>
+                <TextInput
+                  type="text"
+                  placeholder="Item"
+                  style={styles.email}
+                  value={nomeNovo}
+                  onChangeText={setNomeNovo}
+                ></TextInput>
+                <TextInput
+                  type="text"
+                  placeholder="Quantidade"
+                  style={styles.email}
+                  value={quantidadeNovo}
+                  onChangeText={setQuantidadeNovo}
+                ></TextInput>
+                <TextInput
+                  type="text"
+                  placeholder="Preço"
+                  style={styles.email}
+                  value={precoNovo}
+                  onChangeText={setPrecoNovo}
+                ></TextInput>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={editarItem}
+                >
+                  <Text style={styles.textStyle}>Editar</Text>
+                </Pressable>
+                <Pressable
+                  style={[styles.button, styles.buttonClose]}
+                  onPress={() => setModalVisible(!modalVisible)}
+                >
+                  <Text style={styles.textStyle}>Cancelar</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+        </View>
       </View>
     </View>
   );
@@ -110,10 +195,61 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 25,
   },
-  viewText: {},
+
   viewButton: {
     marginLeft: 240,
     marginTop: -80,
+  },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22,
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  button: {
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  buttonOpen: {
+    backgroundColor: "#F194FF",
+  },
+  buttonClose: {
+    backgroundColor: "#2196F3",
+  },
+  textStyle: {
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+  },
+  email: {
+    flexDirection: "row",
+    borderRadius: 5,
+    width: 200,
+    height: 50,
+    alignItems: "center",
+    borderColor: "gray",
+    borderWidth: 1,
+    marginTop: 10,
   },
 });
 
