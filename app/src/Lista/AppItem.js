@@ -100,7 +100,7 @@ function AppItem(props) {
           >
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
-                <Text style={styles.modalText}>Hello World!</Text>
+                <Text style={styles.textItem}>Editar</Text>
                 <TextInput
                   type="text"
                   placeholder="Item"
@@ -123,13 +123,13 @@ function AppItem(props) {
                   onChangeText={setPrecoNovo}
                 ></TextInput>
                 <Pressable
-                  style={[styles.button, styles.buttonClose]}
+                  style={styles.buttonCadastro}
                   onPress={editarItem}
                 >
                   <Text style={styles.textStyle}>Editar</Text>
                 </Pressable>
                 <Pressable
-                  style={[styles.button, styles.buttonClose]}
+                  style={styles.buttonVoltar}
                   onPress={() => setModalVisible(!modalVisible)}
                 >
                   <Text style={styles.textStyle}>Cancelar</Text>
@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
   deleteButton: {
     marginLeft: 10,
     height: 40,
-    width: 40,
+    width: 80,
     backgroundColor: "red",
     borderRadius: 10,
     padding: 10,
@@ -250,6 +250,32 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderWidth: 1,
     marginTop: 10,
+  },
+  buttonVoltar: {
+    marginTop: 10,
+    height: 50,
+    width:80,
+    backgroundColor: "grey",
+    borderRadius: 5,
+    fontSize: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 20,
+    shadowOpacity: 20,
+    shadowColor: "#fff",
+  },
+  buttonCadastro: {
+    marginTop: 10,
+    height: 50,
+    width:80,
+    backgroundColor: "#4C37F1",
+    borderRadius: 5,
+    fontSize: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 20,
+    shadowOpacity: 20,
+    shadowColor: "#fff",
   },
 });
 

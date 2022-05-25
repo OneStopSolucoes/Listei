@@ -45,7 +45,7 @@ function Lista(props) {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.scroll}>
       <View style={styles.container}>
         <Text style={styles.title}>Lista</Text>
         <View style={styles.inputContainer}>
@@ -87,10 +87,14 @@ function Lista(props) {
 }
 
 const styles = StyleSheet.create({
+  scroll:{
+    backgroundColor: "white",
+  },
   container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
+ 
   },
   title: {
     color: "black",
