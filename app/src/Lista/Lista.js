@@ -21,11 +21,6 @@ function Lista(props) {
   const [valor, setValor] = useState();
   const [nome, setNome] = useState(route.params.paramKey);
 
-  
-
-  
-  
-
   const adicionarItem = () => {
     const formData = new FormData();
     formData.append("list_id", listaId);
@@ -42,6 +37,10 @@ function Lista(props) {
       .catch((error) => {
         console.log(error.response.data + "olá");
       });
+
+    setItem("");
+    setQuantidade("");
+    setValor("");
   };
 
   return (
@@ -73,10 +72,15 @@ function Lista(props) {
             <Text style={styles.buttonText}>Adicionar</Text>
           </TouchableOpacity>
           <ScrollView>
-            <AppList key={listaId} id={listaId}/>
+            <AppList key={listaId} id={listaId} />
           </ScrollView>
           <View style={styles.soma}>
-            <TouchableOpacity style={styles.buttonVoltar} onPress={() => navigation.navigate("ListaCriada", {paramKey: nome})}>
+            <TouchableOpacity
+              style={styles.buttonVoltar}
+              onPress={() =>
+                navigation.navigate("ListaCriada", { paramKey: nome })
+              }
+            >
               <Text style={styles.buttonText}>Voltar</Text>
             </TouchableOpacity>
           </View>
@@ -87,14 +91,13 @@ function Lista(props) {
 }
 
 const styles = StyleSheet.create({
-  scroll:{
+  scroll: {
     backgroundColor: "white",
   },
   container: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
- 
   },
   title: {
     color: "black",
@@ -137,7 +140,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 20,
     shadowColor: "#fff",
   },
-  
+
   buttonCalcular: {
     marginTop: 10,
     height: 30,
