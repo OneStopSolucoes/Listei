@@ -34,7 +34,7 @@ export default function AppList(props) {
 
   useEffect(() => {
   carregaLista()
-  },[]);
+  },[Object.values(items)]);
 
 
 
