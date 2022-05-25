@@ -1,42 +1,39 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { StyleSheet, View, Text, ScrollView, Button } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import api from "../services/api";
 import AppItem from "./AppItem";
 
-
-
-
 export default function AppList(props) {
   const route = useRoute();
-  const [items,setItems] = useState([])
-  const[idLista, setIdlista] = useState(props.id)
+  const [items, setItems] = useState([]);
+  const [idLista, setIdlista] = useState(props.id);
   const [listaId, setListaId] = useState(props.listaId);
 
-
+  console.log(items);
   var total = items.reduce(getTotal, 0);
   function getTotal(total, item) {
-   return total + (item.price * item.qtd);
+    return total + item.price * item.qtd;
   }
-
-
 
   async function carregaLista() {
-    await api.get(`/listitems/${idLista === undefined ? listaId: idLista}`)
-    .then((response)=> {
-      setItems(response.data)
-    })
-    .catch((error)=> {
-      console.log(error.response+ "tô no erro")
-    })
+    await api
+      .get(`/listitems/${idLista === undefined ? listaId : idLista}`)
+      .then((response) => {
+        setItems(response.data);
+      })
+      .catch((error) => {
+        console.log(error.response + "tô no erro");
+      });
   }
-
   useEffect(() => {
-  carregaLista()
-  },[Object.values(items)]);
+    carregaLista();
+  }, []);
 
 
+  
+ 
 
   return (
     <View>
@@ -53,7 +50,6 @@ export default function AppList(props) {
                 quantidade={item.qtd}
                 preco={item.price}
               />
-            
             </View>
           );
         })}

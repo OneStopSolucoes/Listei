@@ -20,8 +20,10 @@ function Lista(props) {
   const [quantidade, setQuantidade] = useState();
   const [valor, setValor] = useState();
   const [nome, setNome] = useState(route.params.paramKey);
+let alteracoes = ""
 
-  const adicionarItem = () => {
+  const adicionarItem = (event) => {
+    event.preventDefault();
     const formData = new FormData();
     formData.append("list_id", listaId);
     formData.append("name", item);
@@ -33,14 +35,12 @@ function Lista(props) {
       })
       .then((response) => {
         console.log(response.data);
+      alteracoes = response.data
       })
       .catch((error) => {
         console.log(error.response.data + "olá");
       });
-
-    setItem("");
-    setQuantidade("");
-    setValor("");
+    //limpar campos
   };
 
   return (
@@ -72,7 +72,7 @@ function Lista(props) {
             <Text style={styles.buttonText}>Adicionar</Text>
           </TouchableOpacity>
           <ScrollView>
-            <AppList key={listaId} id={listaId} />
+            <AppList key={listaId} id={listaId} alteracoes={adicionarItem}/>
           </ScrollView>
           <View style={styles.soma}>
             <TouchableOpacity
