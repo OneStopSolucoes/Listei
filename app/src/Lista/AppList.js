@@ -19,7 +19,6 @@ export default function AppList(props) {
   const [item, setItem] = useState(props.item);
   const [quantidade, setQuantidade] = useState(props.quantidade);
   const [valor, setValor] = useState(props.valor);
-  console.log(idLista);
 
   var total = items.reduce(getTotal, 0);
   function getTotal(total, item) {
@@ -33,7 +32,7 @@ export default function AppList(props) {
         setItems(response.data);
       })
       .catch((error) => {
-        console.log(error.response + "tô no erro");
+        console.log(error.response.data + "tô no erro");
       });
   }
   useEffect(() => {
@@ -47,18 +46,17 @@ export default function AppList(props) {
     formData.append("name", props.item);
     formData.append("qtd", props.quantidade);
     formData.append("price", props.valor);
-    
-    console.log(formData)
+
     api
       .post("/createlistitem ", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then((response) => {
         console.log(response.data);
-       carregaLista();
+        carregaLista();
       })
       .catch((error) => {
-        console.log(error+ "olá erro");
+        console.log(error + "olá erro");
       });
     //limpar campos
   };
@@ -80,6 +78,9 @@ export default function AppList(props) {
                 item={item.name}
                 quantidade={item.qtd}
                 preco={item.price}
+                idLista={idLista}
+                ListaId={listaId}
+                carregaLista={carregaLista()}
               />
             </View>
           );

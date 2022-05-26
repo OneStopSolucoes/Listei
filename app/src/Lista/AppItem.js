@@ -13,14 +13,15 @@ import api from "../services/api";
 
 function AppItem(props) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [modalVisibleDel, setModalVisibleDel] = useState(false);
   const [nomeNovo, setNomeNovo] = useState(props.item);
   const [quantidadeNovo, setQuantidadeNovo] = useState(props.quantidade);
   const [precoNovo, setPrecoNovo] = useState(props.preco);
 
-  console.log(props.carregaLista)
   const deletarItem = () => {
     const formData = new FormData();
     formData.append("listitem_id", props.id);
+    console.log(props.id);
 
     api
       .post("/deletelistitem  ", formData, {
@@ -28,6 +29,7 @@ function AppItem(props) {
       })
       .then((response) => {
         console.log(response.data);
+        props.carregarLista;
       })
       .catch((error) => {
         console.log(error.response.data + "olá");
@@ -47,6 +49,7 @@ function AppItem(props) {
       .then((response) => {
         console.log(response.data);
         setModalVisible(!modalVisible);
+        props.carregarLista;
       })
       .catch((error) => {
         console.log(error.response.data + "olá");
@@ -79,7 +82,7 @@ function AppItem(props) {
       <View style={styles.viewButton}>
         <TouchableOpacity
           style={styles.deleteButton}
-          onPress={handleDeletePress}
+          onPress={() => setModalVisibleDel(true)}
         >
           <Text style={styles.buttonText}>X</Text>
         </TouchableOpacity>
@@ -89,6 +92,7 @@ function AppItem(props) {
         >
           <Text style={styles.buttonText}>Editar</Text>
         </Pressable>
+       {/* editar */}
         <View style={styles.centeredView}>
           <Modal
             animationType="slide"
@@ -123,10 +127,7 @@ function AppItem(props) {
                   value={precoNovo}
                   onChangeText={setPrecoNovo}
                 ></TextInput>
-                <Pressable
-                  style={styles.buttonCadastro}
-                  onPress={editarItem}
-                >
+                <Pressable style={styles.buttonCadastro} onPress={editarItem}>
                   <Text style={styles.textStyle}>Editar</Text>
                 </Pressable>
                 <Pressable
@@ -134,6 +135,35 @@ function AppItem(props) {
                   onPress={() => setModalVisible(!modalVisible)}
                 >
                   <Text style={styles.textStyle}>Cancelar</Text>
+                </Pressable>
+              </View>
+            </View>
+          </Modal>
+        </View>
+        {/* // deletar */}
+        <View style={styles.centeredView}>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisibleDel}
+            onRequestClose={() => {
+              Alert.alert("Modal has been closed.");
+              setModalVisibleDel(!modalVisibleDel);
+            }}
+          >
+            <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                <Text style={styles.textItem}>Editar</Text>
+               <Text>Desejar Excluir o item : {props.item}</Text>
+               
+                <Pressable style={styles.buttonCadastro} onPress={deletarItem}>
+                  <Text style={styles.textStyle}>Sim</Text>
+                </Pressable>
+                <Pressable
+                  style={styles.buttonVoltar}
+                  onPress={() => setModalVisibleDel(!modalVisibleDel)}
+                >
+                  <Text style={styles.textStyle}>Não</Text>
                 </Pressable>
               </View>
             </View>
@@ -255,7 +285,7 @@ const styles = StyleSheet.create({
   buttonVoltar: {
     marginTop: 10,
     height: 50,
-    width:80,
+    width: 80,
     backgroundColor: "grey",
     borderRadius: 5,
     fontSize: 16,
@@ -268,7 +298,7 @@ const styles = StyleSheet.create({
   buttonCadastro: {
     marginTop: 10,
     height: 50,
-    width:80,
+    width: 80,
     backgroundColor: "#4C37F1",
     borderRadius: 5,
     fontSize: 16,

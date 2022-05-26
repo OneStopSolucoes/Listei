@@ -21,7 +21,8 @@ function Lista(props) {
   const [valor, setValor] = useState();
   const [nome, setNome] = useState(route.params.paramKey);
 
-  console.log(item, valor, quantidade);
+
+
 
   return (
     <ScrollView style={styles.scroll}>
@@ -51,15 +52,9 @@ function Lista(props) {
           {/* <TouchableOpacity style={styles.button} onPress={adicionarItem}>
             <Text style={styles.buttonText}>Adicionar</Text>
           </TouchableOpacity> */}
-
           <ScrollView>
-            <AppList
-              key={listaId}
-              id={listaId}
-              item={item}
-              quantidade={quantidade}
-              valor={valor}
-            />
+            
+            <AppList key={listaId} id={listaId} item={item} quantidade={quantidade} valor={valor} />
           </ScrollView>
           <View style={styles.soma}>
             <TouchableOpacity
