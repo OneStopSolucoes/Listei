@@ -38,6 +38,7 @@ function CampoLogin() {
       .then((response) => {
         id = response.data.id;
         nome = response.data.username;
+        setEmail(response.data.email)
         navigation.navigate("Home", {
           paramKey: nome,
           emailKey: email,

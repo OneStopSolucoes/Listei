@@ -7,6 +7,7 @@ function Perfil() {
   const navigation = useNavigation();
   const route = useRoute();
   const [nome, setNome] = useState(route.params.paramKey);
+  const [email, setEmail] = useState(route.params.emailKey);
   return (
     <SafeAreaView style={styles.principal}>
       <View style={styles.classTitulo}>
@@ -16,9 +17,10 @@ function Perfil() {
       <View>
         <View style={styles.dados}>
           <Text style={styles.informacoes}>Nome : {nome}</Text>
-          <Text style={styles.informacoes}>Email : {nome}</Text>
+          <Text style={styles.informacoes}>Email : {email}</Text>
         </View>
       </View>
+      
 
       <View style={styles.classButton}>
         <View style={styles.button}>
