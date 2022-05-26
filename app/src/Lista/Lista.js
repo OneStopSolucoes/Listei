@@ -20,28 +20,8 @@ function Lista(props) {
   const [quantidade, setQuantidade] = useState();
   const [valor, setValor] = useState();
   const [nome, setNome] = useState(route.params.paramKey);
-let alteracoes = ""
 
-  const adicionarItem = (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("list_id", listaId);
-    formData.append("name", item);
-    formData.append("qtd", quantidade);
-    formData.append("price", valor);
-    api
-      .post("/createlistitem ", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then((response) => {
-        console.log(response.data);
-      alteracoes = response.data
-      })
-      .catch((error) => {
-        console.log(error.response.data + "olá");
-      });
-    //limpar campos
-  };
+  console.log(item, valor, quantidade);
 
   return (
     <ScrollView style={styles.scroll}>
@@ -68,11 +48,18 @@ let alteracoes = ""
             clearButtonMode="always"
             onChangeText={setValor}
           />
-          <TouchableOpacity style={styles.button} onPress={adicionarItem}>
+          {/* <TouchableOpacity style={styles.button} onPress={adicionarItem}>
             <Text style={styles.buttonText}>Adicionar</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+
           <ScrollView>
-            <AppList key={listaId} id={listaId} alteracoes={adicionarItem}/>
+            <AppList
+              key={listaId}
+              id={listaId}
+              item={item}
+              quantidade={quantidade}
+              valor={valor}
+            />
           </ScrollView>
           <View style={styles.soma}>
             <TouchableOpacity

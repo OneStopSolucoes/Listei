@@ -1,6 +1,12 @@
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, ScrollView, Button } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import api from "../services/api";
 import AppItem from "./AppItem";
@@ -10,8 +16,11 @@ export default function AppList(props) {
   const [items, setItems] = useState([]);
   const [idLista, setIdlista] = useState(props.id);
   const [listaId, setListaId] = useState(props.listaId);
+  const [item, setItem] = useState(props.item);
+  const [quantidade, setQuantidade] = useState(props.quantidade);
+  const [valor, setValor] = useState(props.valor);
+  console.log(idLista);
 
-  console.log(items);
   var total = items.reduce(getTotal, 0);
   function getTotal(total, item) {
     return total + item.price * item.qtd;
@@ -31,13 +40,35 @@ export default function AppList(props) {
     carregaLista();
   }, []);
 
-
-  
- 
+  const adicionarItem = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("list_id", idLista === undefined ? listaId : idLista);
+    formData.append("name", props.item);
+    formData.append("qtd", props.quantidade);
+    formData.append("price", props.valor);
+    
+    console.log(formData)
+    api
+      .post("/createlistitem ", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((response) => {
+        console.log(response.data);
+       carregaLista();
+      })
+      .catch((error) => {
+        console.log(error+ "olá erro");
+      });
+    //limpar campos
+  };
 
   return (
     <View>
       <View>
+        <TouchableOpacity style={styles.button} onPress={adicionarItem}>
+          <Text style={styles.buttonText}>Adicionar</Text>
+        </TouchableOpacity>
         <Text style={styles.title}>Itens</Text>
         {items.map((item) => {
           return (
@@ -71,5 +102,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "grey",
     marginTop: 10,
+  },
+  button: {
+    marginTop: 10,
+    height: 30,
+    backgroundColor: "#4C37F1",
+    borderRadius: 5,
+    paddingHorizontal: 24,
+    fontSize: 16,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 20,
+    shadowOpacity: 20,
+    shadowColor: "#fff",
+  },
+  buttonText: {
+    color: "#fff",
+    fontWeight: "bold",
   },
 });

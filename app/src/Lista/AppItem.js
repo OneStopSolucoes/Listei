@@ -17,6 +17,7 @@ function AppItem(props) {
   const [quantidadeNovo, setQuantidadeNovo] = useState(props.quantidade);
   const [precoNovo, setPrecoNovo] = useState(props.preco);
 
+  console.log(props.carregaLista)
   const deletarItem = () => {
     const formData = new FormData();
     formData.append("listitem_id", props.id);
