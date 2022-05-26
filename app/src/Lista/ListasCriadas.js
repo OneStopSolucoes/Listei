@@ -17,6 +17,7 @@ function ListaCriada() {
       .get(`/userlists/${idUser}`)
       .then((response) => {
         setLista(response.data);
+        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -42,7 +43,10 @@ function ListaCriada() {
                 key={list}
                 onPress={() =>
                   navigation.navigate("Lista", {
-                    listkey: list.id, 
+                    listkey: list.id,
+                    listNome: list.name,
+                    listLugar: list.place,
+                    listData: list.date,
                   })
                 }
               >

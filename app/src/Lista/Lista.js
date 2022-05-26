@@ -20,14 +20,20 @@ function Lista(props) {
   const [quantidade, setQuantidade] = useState();
   const [valor, setValor] = useState();
   const [nome, setNome] = useState(route.params.paramKey);
-
-
-
+  const [nomeLista, setNomelista] = useState(route.params.listNome);
+  const [lugarLista, setLugarlista] = useState(route.params.listLugar);
+  const [dataLista, setDatalista] = useState(route.params.listData);
 
   return (
     <ScrollView style={styles.scroll}>
       <View style={styles.container}>
         <Text style={styles.title}>Lista</Text>
+        <View style={styles.viewInfo}>
+          <Text style={styles.info}>Nome: {nomeLista}</Text>
+          <Text style={styles.info}>Lugar: {lugarLista}</Text>
+          <Text style={styles.info}>Data: {dataLista}</Text>
+        </View>
+
         <View style={styles.inputContainer}>
           <TextInput
             style={styles.input}
@@ -53,8 +59,13 @@ function Lista(props) {
             <Text style={styles.buttonText}>Adicionar</Text>
           </TouchableOpacity> */}
           <ScrollView>
-            
-            <AppList key={listaId} id={listaId} item={item} quantidade={quantidade} valor={valor} />
+            <AppList
+              key={listaId}
+              id={listaId}
+              item={item}
+              quantidade={quantidade}
+              valor={valor}
+            />
           </ScrollView>
           <View style={styles.soma}>
             <TouchableOpacity
@@ -86,6 +97,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginTop: 50,
+  },
+  info: {
+    color: "black",
+    fontSize: 15,
+  },
+  viewInfo: {
+    marginTop: 10,
   },
   inputContainer: {
     flex: 1,
