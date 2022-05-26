@@ -29,7 +29,7 @@ function AppItem(props) {
       })
       .then((response) => {
         console.log(response.data);
-        setModalVisibleDel(!modalVisibleDel);
+        setModalVisibleDel(!modalVisibleDel)
         props.carregarLista;
       })
       .catch((error) => {
@@ -49,7 +49,7 @@ function AppItem(props) {
       })
       .then((response) => {
         console.log(response.data);
-        setModalVisible(!modalVisible);
+        setModalVisible(!modalVisible)
         props.carregarLista;
       })
       .catch((error) => {
@@ -57,29 +57,26 @@ function AppItem(props) {
       });
   };
 
-
   return (
     <View>
-      <View style={styles.viewText}>
-        <Text style={styles.textItem}>{props.item}</Text>
-        <Text>Quantidade:{props.quantidade}</Text>
-        <Text>Valor: R${props.preco}</Text>
-      </View>
+      <Text style={styles.textItem}>{props.item}</Text>
+      <Text>Quantidade:{props.quantidade}</Text>
+      <Text>Valor: R${props.preco}</Text>
 
       <View style={styles.viewButton}>
         <TouchableOpacity
           style={styles.deleteButton}
-          onPress={deletarItem}
+          onPress={() => setModalVisibleDel(true)}
         >
           <Text style={styles.buttonText}>X</Text>
         </TouchableOpacity>
         <Pressable
           style={styles.editButton}
-          onPress={editarItem}
+          onPress={() => setModalVisible(true)}
         >
           <Text style={styles.buttonText}>Editar</Text>
         </Pressable>
-       {/* editar */}
+        {/* editar */}
         <View style={styles.centeredView}>
           <Modal
             animationType="slide"
@@ -135,20 +132,20 @@ function AppItem(props) {
             visible={modalVisibleDel}
             onRequestClose={() => {
               Alert.alert("Modal has been closed.");
-              setModalVisibleDel(!modalVisibleDel);
+              setModalVisibleDel(modalVisibleDel);
             }}
           >
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <Text style={styles.textItem}>Editar</Text>
-               <Text>Desejar Excluir o item : {props.item}</Text>
-               
+                <Text>Desejar Excluir o item : {props.item}</Text>
+
                 <Pressable style={styles.buttonCadastro} onPress={deletarItem}>
                   <Text style={styles.textStyle}>Sim</Text>
                 </Pressable>
                 <Pressable
                   style={styles.buttonVoltar}
-                  onPress={() => setModalVisibleDel(!modalVisibleDel)}
+                  onPress={()=>setModalVisibleDel(!modalVisibleDel)}
                 >
                   <Text style={styles.textStyle}>Não</Text>
                 </Pressable>

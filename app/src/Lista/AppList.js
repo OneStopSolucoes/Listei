@@ -32,7 +32,7 @@ export default function AppList(props) {
         setItems(response.data);
       })
       .catch((error) => {
-        console.log(error.response.data + "tô no erro");
+        console.log(error.response + "tô no erro");
       });
   }
   useEffect(() => {
