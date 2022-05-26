@@ -40,7 +40,7 @@ function ModalLista() {
       })
       .then((response) => {
         listId =response.data.id
-        navigation.navigate("Lista" , {listIdKey: listId, paramKey: nome});
+        navigation.navigate("ListaCriada" , {paramKey: nome, idKey: id});
       })
       .catch((error) => {
         alert(error.response.data.message);

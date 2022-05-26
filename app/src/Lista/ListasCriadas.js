@@ -42,7 +42,7 @@ function ListaCriada() {
                 key={list}
                 onPress={() =>
                   navigation.navigate("Lista", {
-                    listkey: list.id,
+                    listkey: list.id, 
                   })
                 }
               >
