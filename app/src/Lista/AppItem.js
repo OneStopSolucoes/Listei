@@ -29,6 +29,7 @@ function AppItem(props) {
       })
       .then((response) => {
         console.log(response.data);
+        setModalVisibleDel(!modalVisibleDel);
         props.carregarLista;
       })
       .catch((error) => {
@@ -55,21 +56,7 @@ function AppItem(props) {
         console.log(error.response.data + "olá");
       });
   };
-  function handleDeletePress() {
-    Alert.alert(
-      "Atenção",
-      "Você tem certeza que deseja excluir este item?",
-      [
-        {
-          text: "Não",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel",
-        },
-        { text: "Sim", onPress: deletarItem() },
-      ],
-      { cancelable: false }
-    );
-  }
+
 
   return (
     <View>
@@ -82,13 +69,13 @@ function AppItem(props) {
       <View style={styles.viewButton}>
         <TouchableOpacity
           style={styles.deleteButton}
-          onPress={() => setModalVisibleDel(true)}
+          onPress={deletarItem}
         >
           <Text style={styles.buttonText}>X</Text>
         </TouchableOpacity>
         <Pressable
           style={styles.editButton}
-          onPress={() => setModalVisible(true)}
+          onPress={editarItem}
         >
           <Text style={styles.buttonText}>Editar</Text>
         </Pressable>
