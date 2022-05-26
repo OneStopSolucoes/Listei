@@ -30,7 +30,7 @@ function AppItem(props) {
       .then((response) => {
         console.log(response.data);
         setModalVisibleDel(!modalVisibleDel)
-        props.carregarLista;
+        props.carregarLista();
       })
       .catch((error) => {
         console.log(error.response.data + "olá");
@@ -50,7 +50,7 @@ function AppItem(props) {
       .then((response) => {
         console.log(response.data);
         setModalVisible(!modalVisible)
-        props.carregarLista;
+        props.carregarLista();
       })
       .catch((error) => {
         console.log(error.response.data + "olá");
